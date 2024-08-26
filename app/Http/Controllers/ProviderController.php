@@ -28,8 +28,8 @@ class ProviderController extends Controller
         'email'=>$socialUser->email,
         'provider_token'=>$socialUser->token,
       ]);
-      Auth::login($user);
 
+      Auth::login($user);
               // authenticated function for user role
               if(Auth::user()->role == 'admin'){
                 return to_route('adminDashboard');

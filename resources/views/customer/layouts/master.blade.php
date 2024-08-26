@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('userlogin') }}">
                                 @csrf
                                 <input type="submit" value="Logout" class="btn btn-success">
                             </form>

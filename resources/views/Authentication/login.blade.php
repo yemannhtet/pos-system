@@ -12,8 +12,7 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 offset-3">
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
@@ -39,19 +38,16 @@
                                         Login
                                     </a>
                                     <hr>
-                                    <a href="index.html" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                    <a href="{{url('/auth/google/redirect')}}" class="btn btn-success text-white btn-user btn-block">
+                                        <i class="fa-brands fa-google"></i></i> Login with Google
                                     </a>
-                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                    <a href="{{url('/auth/github/redirect')}}" class="btn bg-dark btn-user btn-block text-white">
+                                        <i class="fa-brands fa-github"></i></i></i> Login with Github
                                     </a>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="register.html">Create an Account!</a>
+                                    <a class="small" href="{{route('userRegister')}}">Create an Account!</a>
                                 </div>
                             </div>
                         </div>
