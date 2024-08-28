@@ -38,13 +38,19 @@ Route::get('login/register');
 
 
 //admin
-Route::get('admin/home',function(){
-    return view('admin.home');
-})->name('adminDashboard');
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+    Route::get('/home', function() {
+        return view('admin.home');
+    })->name('adminDashboard');
+});
+
 
 //customer
-Route::get('customer/home',function(){
-    return view('customer.home');
-})->name('userDashboard');
+Route::group(['prefix' => 'customer', 'middleware' => 'user'], function() {
+    Route::get('/home',function(){
+        return view('customer.home');
+    })->name('userDashboard');
+});
+
 
 

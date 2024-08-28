@@ -22,11 +22,11 @@
                                             <input type="email" class="form-control form-control-user"
                                                 @error('email')
                                                 is-invalid
-                                            @enderror
+                                              @enderror
                                                 placeholder="Enter Email Address..." name="email"
                                                 value="{{ old('email') }}">
                                             @error('email')
-                                                <small class="is-invalid">{{ $message }}</small>
+                                                <small class="is-invalid text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">
@@ -34,9 +34,9 @@
                                                 @error('email')
                                             is-invalid
                                         @enderror
-                                                name="password" value="{{ old('password') }}">
+                                                name="password" value="{{ old('password') }}" placeholder="Enter Your Password">
                                             @error('email')
-                                                <small class="is-invalid">{{ $message }}</small>
+                                                <small class="is-invalid  text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
 
