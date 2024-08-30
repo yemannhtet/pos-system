@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\User\UserDashboardController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 
 
@@ -39,17 +41,13 @@ Route::get('login/register');
 
 //admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
-    Route::get('/home', function() {
-        return view('admin.home');
-    })->name('adminDashboard');
+    Route::get('/home', [AdminDashboardController::class,'index'])->name('adminDashboard');
 });
 
 
-//customer
+//user
 Route::group(['prefix' => 'customer', 'middleware' => 'user'], function() {
-    Route::get('/home',function(){
-        return view('customer.home');
-    })->name('userDashboard');
+    Route::get('/home', [UserDashboardController::class,'index'])->name('userDashboard');
 });
 
 
