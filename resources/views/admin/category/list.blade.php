@@ -24,7 +24,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Create TIme</th>
+                            <th>Create Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +34,12 @@
                                 <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item-> name}}</td>
-                                        <td>{{ $item->created_at }}</td>
+                                        <td>{{ $item->created_at ->format('j-F-Y')}}</td>
+                                        <td>
+                                                <a href="" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <a href="" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></i></a>
+
+                                        </td>
                                     </tr>
                                 @endforeach
 
