@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
@@ -42,6 +43,14 @@ Route::get('login/register');
 //admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/home', [AdminDashboardController::class,'index'])->name('adminDashboard');
+
+    //category route group
+    Route::prefix('category')->group(function(){
+
+        Route::get('list', [CategoryController::class, 'list'])->name('categoryList');
+        Route::get('create', [CategoryController::class, 'createPage'])->name('categoryCreatePage');
+        Route::post('create', [CategoryController::class, 'create'])->name('categoryCreate');
+    });
 });
 
 

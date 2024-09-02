@@ -43,15 +43,15 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
+                <a class="nav-link" href="{{ route('adminDashboard') }}"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
+                <a class="nav-link" href="{{ route('categoryList')}}"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-sitemap"></i></i><span>Add Category </span></a>
+                <a class="nav-link" href="{{ route('categoryCreatePage') }}"><i class="fa-solid fa-sitemap"></i></i><span>Add Category </span></a>
             </li>
 
             <li class="nav-item">
@@ -142,6 +142,9 @@
                 <!-- End of Topbar -->
 
               @yield('content')
+              @include('sweetalert::alert')
+
+
 
 
     <!-- Scroll to Top Button-->
