@@ -36,8 +36,8 @@
                                         <td>{{ $item-> name}}</td>
                                         <td>{{ $item->created_at ->format('j-F-Y')}}</td>
                                         <td>
-                                                <a href="" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                <a href="" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></i></a>
+                                                <a href="{{ route('categoryEdit',$item->id) }}" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <a href="{{ route('categoryDelete',$item->id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></i></a>
 
                                         </td>
                                     </tr>

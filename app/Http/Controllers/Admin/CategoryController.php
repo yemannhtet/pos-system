@@ -32,10 +32,38 @@ class CategoryController extends Controller
         Category::create([
             'name' =>$request->category
         ]);
-        Alert::success('Success Title', 'Success Message');
+        Alert::success('Insert Success', 'Category Insert  Successfully');
 
 
         return back();
+
+    }
+
+    //delete category
+
+    public function delete($id){
+        Category::where('id',$id)->delete();
+        Alert::success('Delete Success', 'Delete Category Successfully');
+        return back();
+
+    }
+    //edit category
+    public function edit($id){
+        $data = Category:: where('id' , $id)->first();
+        return view('admin.category.edit' ,compact('data'));
+    }
+    //update category
+    public function update(Request $request){
+
+        $validator = $request->validate([
+            'category' => 'required | unique:categories,name,'.$request->id
+        ]);
+
+        Category::where('id' , $request->categoryId)->update([
+            'name' => $request->category
+        ]);
+        Alert::success('Update Success', 'Update Category Successfully');
         return to_route('categoryList');
     }
+
 }
