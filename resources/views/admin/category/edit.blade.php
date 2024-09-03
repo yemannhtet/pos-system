@@ -27,7 +27,7 @@
                         id="category"
                         class="form-control @error('category') is-invalid @enderror"
                         name="category"
-                        value="{{ $data->name }}"
+                        value="{{ old('category' , $data->name) }}"
                         placeholder="Add Your Category Name..."
                     >
 

@@ -57,13 +57,14 @@ class CategoryController extends Controller
 
         $validator = $request->validate([
             'category' => 'required | unique:categories,name,'.$request->id
-        ]);
-
+        ],[
+            'category.required' => 'Category Field ကိုဖြည့်စွက်ရန် လိုအပ်ပါသည်။',
+            'category.unique' =>'name အမျိုးအစား ကို အသုံးပြုပြီး ဖြစ်သည်။'
+        ] );
         Category::where('id' , $request->categoryId)->update([
             'name' => $request->category
         ]);
         Alert::success('Update Success', 'Update Category Successfully');
         return to_route('categoryList');
     }
-
 }
