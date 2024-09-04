@@ -55,11 +55,11 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-layer-group"></i><span>Product Details </span></a>
+                <a class="nav-link" href="{{ route('productList') }}"><i class="fa-solid fa-layer-group"></i><span>Product Details </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-plus"></i></i><span>Add Item </span></a>
+                <a class="nav-link" href="{{ route('ProductCreate') }}"><i class="fa-solid fa-plus"></i></i><span>Add Item </span></a>
             </li>
 
             <li class="nav-item">
@@ -188,6 +188,18 @@
     <!-- Page level custom scripts -->
     <script src="{{asset('admin/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset('admin/js/demo/chart-pie-demo.js')}}"></script>
+    {{-- photots load function of product  --}}
+    <script>
+            function loadFile(event){
+                var reader = new FileReader();
+
+                reader.onload = function(){
+                    var output = document.getElementById('output')
+                    output.src = reader.result
+                }
+                reader.readAsDataURL(event.target.files[0])
+            }
+    </script>
 
 </body>
 

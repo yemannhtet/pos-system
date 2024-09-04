@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
@@ -20,4 +21,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('categoryEdit');
         Route::post('update', [CategoryController::class, 'update'])->name('categoryUpdate');
     });
+
+
+    //product route group
+    Route::prefix('product')->group(function(){
+        Route::get('list', [ProductController::class, 'list'])->name('productList');
+        Route::get('create', [ProductController::class, 'create'])->name('ProductCreate');
+        Route::post('create', [ProductController::class, 'productCreate'])->name('product#create');
+
+    });
+
+
 });
