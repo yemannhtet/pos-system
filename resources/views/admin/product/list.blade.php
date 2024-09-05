@@ -17,35 +17,37 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive  text-center">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Image</th>
+                            <th class="col-1">Image</th>
                             <th>Price</th>
                             <th>Stock</th>
-                            <th>Action</th>
+                            <th class="col-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                             @foreach ( $products as $p )
                             <tr>
                                 <td>{{ $p->name }}</td>
-                                <td class="col-2"><img style="height: 150px;" class="img-thumbnail " src="{{ asset('images/'.$p->image) }}" alt=""></td>
+                                <td ><img class="img-thumbnail " src="{{ asset('images/'.$p->image) }}" alt=""></td>
                                 <td>{{ $p->price }}</td>
                                 <td>{{ $p->count }}</td>
                                 <td>
+                                    <form action=""></form>
                                     <a href="" class="btn btn-outline-primary"><i class="fa-solid fa-circle-info"></i></i></a>
                                     <a href="" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></i></a>
+                                    <a href="{{ route('ProductDelete',$p->id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></i></a>
                                 </td>
                             </tr>
                             @endforeach
-
-
                     </tbody>
                 </table>
+                <span class="d-flex justify-content-end">
+                    {{ $products->links('pagination::bootstrap-5') }}
+                </span>
             </div>
         </div>
     </div>

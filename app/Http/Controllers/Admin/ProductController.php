@@ -10,18 +10,27 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
-    //list page function
+    // List page function
     public function list(){
-        $products = Product::get();
+        $products = Product::paginate(3);
         return view('admin.product.list',compact('products'));
     }
+
+
+
+
     // create product
     public function create(){
         $categories = Category::get();
         return view('admin.product.create',compact('categories'));
     }
 
-    //create  product
+        public function delete($id){
+            Product::where('id', $id )->delete();
+            Alert::success('Delete Success', 'Delete Product Successfully');
+            return back();
+        }
+    //create |update  validation
     public function productcreate(Request $request){
        $this->validationCheck($request);
 
@@ -44,7 +53,7 @@ class ProductController extends Controller
             'name'  => 'required|unique:products,name',
             'price'   => 'required',
             'categoryName' =>'required',
-            'count' => 'required|numeric|digits_between:1,100',
+            'count' => 'required|numeric|numeric|max:100',
             'description' => 'required'
         ];
         $messages=[

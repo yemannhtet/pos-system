@@ -13,7 +13,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
 
     //category route group
     Route::prefix('category')->group(function(){
-
         Route::get('list', [CategoryController::class, 'list'])->name('categoryList');
         Route::get('create', [CategoryController::class, 'createPage'])->name('categoryCreatePage');
         Route::post('create', [CategoryController::class, 'create'])->name('categoryCreate');
@@ -28,8 +27,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::get('list', [ProductController::class, 'list'])->name('productList');
         Route::get('create', [ProductController::class, 'create'])->name('ProductCreate');
         Route::post('create', [ProductController::class, 'productCreate'])->name('product#create');
-
+       Route::get('delete/{id}', [ProductController::class, 'delete'])->name('ProductDelete');
     });
-
-
 });
