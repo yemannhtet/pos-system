@@ -24,15 +24,43 @@ class ProductController extends Controller
         $categories = Category::get();
         return view('admin.product.create',compact('categories'));
     }
-
+//delete
         public function delete($id){
             Product::where('id', $id )->delete();
             Alert::success('Delete Success', 'Delete Product Successfully');
             return back();
         }
-    //create |update  validation
+        //details
+        public function details($id) {
+            // Find the product with the specified ID
+            $data = Product::select('products.id','products.name', 'products.price', 'products.count','products.category_id', 'products.description','products.image', 'categories.name as category_name')
+                ->leftJoin('categories', 'products.category_id', 'categories.id')
+                ->where('products.id', $id)
+                ->first();
+
+            return view('admin.product.edit', compact('data'));
+        }
+        //edit product
+        public function edit($id) {
+            // Find the product with the specified ID
+            $data = Product::select('products.id','products.name', 'products.price', 'products.count','products.category_id', 'products.description','products.image', 'categories.name as category_name')
+                ->leftJoin('categories', 'products.category_id', 'categories.id')
+                ->where('products.id', $id)
+                ->first();
+                $categories = Category::get();
+            // Pass the data to the view
+            return view('admin.product.edit ', compact('data','categories'));
+        }
+
+        // //update product
+        public function update(Request  $request){
+             $this->validationCheck($request,"update");
+
+        }
+
+    //create product validation
     public function productcreate(Request $request){
-       $this->validationCheck($request);
+       $this->validationCheck($request,"create");
 
        $data = $this->requestProductData($request);
 
@@ -47,15 +75,16 @@ class ProductController extends Controller
        return to_route('productList');
     }
     // crate | update validation
-    private function validationCheck($request){
+    private function validationCheck($request,$action){
         $rules = [
-            'image' => 'required |mimes:jpg,png,jpeg,svg|file',
-            'name'  => 'required|unique:products,name',
-            'price'   => 'required',
-            'categoryName' =>'required',
-            'count' => 'required|numeric|numeric|max:100',
-            'description' => 'required'
+                'name' => 'required|unique:products,name,'.$request->productId,
+                'price'   => 'required',
+                'categoryName' =>'required',
+                'count' => 'required|numeric|numeric|max:100',
+                'description' => 'required'
         ];
+        $rules['image']=$action=="create" ? "required |mimes:jpg,png,jpeg,svg|file":"mimes:jpg,png,jpeg,svg|file";
+
         $messages=[
             'images.required' =>' ပုံဖြည့်ရန် လိုအပ်သည်။',
             'name.required'   =>' အမည်တစ်ခုဖြည့်စွက်ရန်လိုသည်။',

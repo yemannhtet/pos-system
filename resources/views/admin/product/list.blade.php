@@ -37,8 +37,8 @@
                                 <td>{{ $p->count }}</td>
                                 <td>
                                     <form action=""></form>
-                                    <a href="" class="btn btn-outline-primary"><i class="fa-solid fa-circle-info"></i></i></a>
-                                    <a href="" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="{{ route('ProductDetails',$p->id) }}" class="btn btn-outline-primary"><i class="fa-solid fa-circle-info"></i></i></a>
+                                    <a href="{{ route('ProductEdit',$p->id) }}" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <a href="{{ route('ProductDelete',$p->id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></i></a>
                                 </td>
                             </tr>
