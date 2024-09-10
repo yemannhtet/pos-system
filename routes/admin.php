@@ -30,6 +30,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::get('delete/{id}', [ProductController::class, 'delete'])->name('ProductDelete');
         Route::get('details/{id}', [ProductController::class, 'details'])->name('ProductDetails');
         Route::get('edit/{id}',[ProductController::class, 'edit'])->name('ProductEdit');
-        Route::post('update', [ProductController::class, 'update'])->name('ProductUpdate');
+        Route::post('update', [ProductController::class, 'update'])->name('product#update');
     });
 });

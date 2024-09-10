@@ -16,7 +16,22 @@ class ProductController extends Controller
         return view('admin.product.list',compact('products'));
     }
 
+    //create product validation
+    public function productcreate(Request $request){
+        $this->validationCheck($request,"create");
 
+        $data = $this->requestProductData($request);
+
+        if($request->hasFile('image')){
+          $fileName =uniqid() . $request->file('image')->getClientOriginalName();
+          $request->file('image')->move(public_path().'/Images/',$fileName);
+          $data['image'] =$fileName;
+        }
+
+        Product::create($data);
+        Alert::success('Insert Success', 'Insert Product Successfully');
+        return to_route('productList');
+     }
 
 
     // create product
@@ -30,50 +45,55 @@ class ProductController extends Controller
             Alert::success('Delete Success', 'Delete Product Successfully');
             return back();
         }
-        //details
+
+        //details function
         public function details($id) {
             // Find the product with the specified ID
             $data = Product::select('products.id','products.name', 'products.price', 'products.count','products.category_id', 'products.description','products.image', 'categories.name as category_name')
                 ->leftJoin('categories', 'products.category_id', 'categories.id')
                 ->where('products.id', $id)
                 ->first();
-
-            return view('admin.product.edit', compact('data'));
+            return view('admin.product.details', compact('data'));
         }
+
         //edit product
         public function edit($id) {
             // Find the product with the specified ID
-            $data = Product::select('products.id','products.name', 'products.price', 'products.count','products.category_id', 'products.description','products.image', 'categories.name as category_name')
+            $products = Product::select('products.id','products.name', 'products.price', 'products.count','products.category_id', 'products.description','products.image', 'categories.name as category_name')
                 ->leftJoin('categories', 'products.category_id', 'categories.id')
                 ->where('products.id', $id)
                 ->first();
                 $categories = Category::get();
             // Pass the data to the view
-            return view('admin.product.edit ', compact('data','categories'));
+            return view('admin.product.edit ', compact('products','categories'));
         }
 
         // //update product
-        public function update(Request  $request){
-             $this->validationCheck($request,"update");
+        public function update(Request $request){
+            $this->validationCheck($request,"update");
+
+            $data=$this->requestProductData($request);
+
+            if ($request->hasFile('image')) {
+                // delete old image if it exists
+                if (file_exists(public_path('images/' . $request->oldImage))) {
+                    unlink(public_path('images/' . $request->oldImage));
+                }
+
+                // upload new image
+                $fileName = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move(public_path('images'), $fileName);
+                $data['image'] = $fileName;
+            } else {
+                $data['image'] = $request->oldImage;
+            }
+
+                Product::where('id', $request->productId)->update($data);
+                Alert::success('Update Success', 'Update Product Successfully');
+                return to_route('productList');
 
         }
 
-    //create product validation
-    public function productcreate(Request $request){
-       $this->validationCheck($request,"create");
-
-       $data = $this->requestProductData($request);
-
-       if($request->hasFile('image')){
-         $fileName =uniqid() . $request->file('image')->getClientOriginalName();
-         $request->file('image')->move(public_path().'/Images/',$fileName);
-         $data['image'] =$fileName;
-       }
-
-       Product::create($data);
-       Alert::success('Insert Success', 'Insert Product Successfully');
-       return to_route('productList');
-    }
     // crate | update validation
     private function validationCheck($request,$action){
         $rules = [

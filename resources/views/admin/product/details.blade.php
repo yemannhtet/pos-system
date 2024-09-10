@@ -14,8 +14,6 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('product#create') }}" method="post" enctype="multipart/form-data">
-                @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col-3">
@@ -63,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+
         </div>
 
     </div>
