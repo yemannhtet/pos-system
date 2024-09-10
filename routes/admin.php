@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -31,5 +32,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::get('details/{id}', [ProductController::class, 'details'])->name('ProductDetails');
         Route::get('edit/{id}',[ProductController::class, 'edit'])->name('ProductEdit');
         Route::post('update', [ProductController::class, 'update'])->name('product#update');
+    });
+//payment
+    Route::prefix('payment')->group(function(){
+        Route::get('list', [PaymentController::class, 'list'])->name('paymentList');
     });
 });
