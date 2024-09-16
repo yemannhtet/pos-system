@@ -35,9 +35,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::post('update', [ProductController::class, 'update'])->name('product#update');
     });
 //payment
-    Route::prefix('payment')->group(function(){
-        Route::get('list', [PaymentController::class, 'list'])->name('paymentList');
-    });
+Route::prefix('payment')->group(function(){
+    Route::get('list', [PaymentController::class, 'index'])->name('paymentList');
+    Route::post('store', [PaymentController::class, 'store'])->name('paymentStore');
+    Route::delete('delete/{id}', [PaymentController::class, 'destroy'])->name('paymentDelete');
+});
 
     // password
     Route::prefix('password')->group(function(){

@@ -44,7 +44,6 @@
                                     <td>{{ $p->price }}(MMK)</td>
                                     <td>{{ $p->count }}</td>
                                     <td>
-                                        <form action=""></form>
                                         <a href="{{ route('ProductDetails', $p->id) }}" class="btn btn-outline-primary"><i
                                                 class="fa-solid fa-circle-info"></i></i></a>
                                         <a href="{{ route('ProductEdit', $p->id) }}" class="btn btn-outline-success"><i

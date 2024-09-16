@@ -32,7 +32,6 @@ class CategoryController extends Controller
         Category::create([
             'name' =>$request->category
         ]);
-        Alert::success('Insert Success', 'Category Insert  Successfully');
 
 
         return back();
