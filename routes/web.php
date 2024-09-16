@@ -27,6 +27,3 @@ Route::get('/auth/{provider}/callback',[ProviderController::class,'callback']);
 // // HOME PAGE ROUTE
 // Route::get('login/register');
 
-
-
-

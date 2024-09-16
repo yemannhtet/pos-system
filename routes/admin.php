@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -36,5 +37,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
 //payment
     Route::prefix('payment')->group(function(){
         Route::get('list', [PaymentController::class, 'list'])->name('paymentList');
+    });
+
+    // password
+    Route::prefix('password')->group(function(){
+        Route::get('change', [AuthController::class, 'passwordChangePage'])->name('passwordChangePage');
+        Route::post('change', [AuthController::class, 'passwordChange'])->name('passwordChange');
     });
 });

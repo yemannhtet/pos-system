@@ -19,10 +19,9 @@
                                     <form class="user" method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                @error('email')
+                                            <input type="email" class="form-control form-control-user  @error('email')
                                                 is-invalid
-                                              @enderror
+                                              @enderror"
                                                 placeholder="Enter Email Address..." name="email"
                                                 value="{{ old('email') }}">
                                             @error('email')
@@ -30,10 +29,9 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                @error('email')
+                                            <input type="password" class="form-control form-control-user @error('email')
                                             is-invalid
-                                        @enderror
+                                             @enderror"
                                                 name="password" value="{{ old('password') }}" placeholder="Enter Your Password">
                                             @error('email')
                                                 <small class="is-invalid  text-danger">{{ $message }}</small>

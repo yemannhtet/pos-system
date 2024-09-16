@@ -77,11 +77,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></i><span>Setting </span></a>
             </li>
-
+            @if (auth()->user()->provider == 'simple')
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password </span></a>
+                <a class="nav-link" href="{{ route('passwordChangePage')}}"><i class="fa-solid fa-lock"></i></i></i><span>Change Password </span></a>
             </li>
-
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></i><span>Logout </span></a>
             </li>
@@ -122,10 +122,12 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                @if (auth()->user()->provider == 'simple')
+                                <a class="dropdown-item" href="{{ route('passwordChangePage')}}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password
                                 </a>
+                                @endif
                                 <div class="dropdown-divider"></div>
                                     <form  method="POST" action="{{ route('logout') }}">
                                         @csrf
