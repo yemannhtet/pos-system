@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
@@ -34,16 +35,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::get('edit/{id}',[ProductController::class, 'edit'])->name('ProductEdit');
         Route::post('update', [ProductController::class, 'update'])->name('product#update');
     });
-//payment
-Route::prefix('payment')->group(function(){
-    Route::get('list', [PaymentController::class, 'index'])->name('paymentList');
-    Route::post('store', [PaymentController::class, 'store'])->name('paymentStore');
-    Route::delete('delete/{id}', [PaymentController::class, 'destroy'])->name('paymentDelete');
-});
+    //payment
+    Route::prefix('payment')->group(function(){
+        Route::get('list', [PaymentController::class, 'index'])->name('paymentList');
+        Route::post('store', [PaymentController::class, 'store'])->name('paymentStore');
+        Route::delete('delete/{id}', [PaymentController::class, 'destroy'])->name('paymentDelete');
+    });
 
     // password
     Route::prefix('password')->group(function(){
         Route::get('change', [AuthController::class, 'passwordChangePage'])->name('passwordChangePage');
         Route::post('change', [AuthController::class, 'passwordChange'])->name('passwordChange');
     });
+
+    //profile
+    Route::prefix('profile')->group(function(){
+        Route::get('details', [ProfileController::class, 'profileDetails'])->name('profileDetails');
+        Route::post('update', [ProfileController::class, 'update'])->name('profileUpdate');
+     });
 });
