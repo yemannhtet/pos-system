@@ -52,5 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
     Route::prefix('profile')->group(function(){
         Route::get('details', [ProfileController::class, 'profileDetails'])->name('profileDetails');
         Route::post('update', [ProfileController::class, 'update'])->name('profileUpdate');
+        Route::get('create/adminAccount', [ProfileController::class, 'createAdminAccount'])->name('createAdminAccount');
+        Route::post('create/adminAccount', [ProfileController::class, 'create'])->name('createAdmin');
      });
 });

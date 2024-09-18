@@ -84,8 +84,8 @@ class ProductController extends Controller
                 }
 
                 // upload new image
-                $fileName = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-                $request->file('image')->move(public_path('images'), $fileName);
+                $fileName = uniqid() . $request->file('image')->getClientOriginalName();
+                $request->file('image')->move(public_path().'/images/', $fileName);
                 $data['image'] = $fileName;
             } else {
                 $data['image'] = $request->oldImage;
