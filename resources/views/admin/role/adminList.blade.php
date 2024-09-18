@@ -10,9 +10,8 @@
                 <div class="d-flex justify-content-between">
                     <div class="">
                         <form action="{{ route('productList') }}" method="get">
-                            @csrf
                             <div class="input-group mb-3">
-                                <input type="text" name="searchKey" class="form-control " placeholder="Product Name.."
+                                <input type="text" name="searchKey" class="form-control " placeholder="Admin Name.."
                                    >
                                 <button class="btn btn-outline-primary " type="submit" id="button-addon2"><i
                                         class="fa-solid fa-magnifying-glass"></i></button>
@@ -20,7 +19,7 @@
                         </form>
                     </div>
                     <div class="">
-                        <a href="{{ route('ProductCreate') }}"><i class="fa-solid fa-plus"></i> Add Product</a>
+                        <a href="{{route('createAdminAccount')}}"><i class="fa-solid fa-plus"></i> Add Admin</a>
                     </div>
                 </div>
             </div>
@@ -30,35 +29,42 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th class="col-1">Image</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th class="col-2">Action</th>
+                                <th >Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $p)
+                            @foreach ($data as $p)
                                 <tr>
-                                    <td>{{ $p->name }}</td>
-                                    <td><img class="img-thumbnail " src="{{ asset('images/' . $p->image) }}" alt="">
-                                    </td>
-                                    <td>{{ $p->price }}(MMK)</td>
-                                    <td>{{ $p->count }}</td>
                                     <td>
-                                        <a href="{{ route('ProductDetails', $p->id) }}" class="btn btn-outline-primary"><i
-                                                class="fa-solid fa-circle-info"></i></i></a>
-                                        <a href="{{ route('ProductEdit', $p->id) }}" class="btn btn-outline-success"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="{{ route('ProductDelete', $p->id) }}" class="btn btn-outline-danger"><i
+                                        @if ($p->name != null )
+                                        {{ $p->name }}
+                                        @else
+                                        {{ $p->nickname }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $p->email}}</td>
+                                    <td>{{ $p->phone}}</td>
+                                    <td>{{ $p->address }}</td>
+                                    <td>
+
+                                            @if (auth()->user()->role == 'superadmin')
+                                            @if (auth()->user()->id != $p->id)
+                                            <a  href="{{ route('adminDelete',$p->id)}}" class="btn btn-outline-danger"><i
                                                 class="fa-solid fa-trash"></i></i></a>
+                                            @endif
+                                           @endif
+
+
+
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <span class="d-flex justify-content-end">
-                        {{ $products->links('pagination::bootstrap-5') }}
-                    </span>
+
                 </div>
             </div>
         </div>

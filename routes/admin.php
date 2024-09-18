@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -54,5 +55,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::post('update', [ProfileController::class, 'update'])->name('profileUpdate');
         Route::get('create/adminAccount', [ProfileController::class, 'createAdminAccount'])->name('createAdminAccount');
         Route::post('create/adminAccount', [ProfileController::class, 'create'])->name('createAdmin');
+     });
+
+         //role
+    Route::prefix('role')->group(function(){
+        Route::get('list', [RoleController::class, 'adminList'])->name('adminList');
+        Route::get('delete/{id}', [RoleController::class, 'destroy'])->name('adminDelete');
      });
 });

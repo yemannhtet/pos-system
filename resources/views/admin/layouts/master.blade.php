@@ -65,15 +65,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('paymentList') }}"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('adminList')}}"><i class="fa-solid fa-user"></i><span>Admin & User List  </span></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></i><span>Setting </span></a>
             </li>
@@ -129,16 +129,22 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                @if (auth()->user()-> role == 'superadmin')
                                 <a class="dropdown-item" href="{{ route('createAdminAccount')}}">
                                     <i class="fa-solid fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i></i>
                                     Add New Admin Account
                                 </a>
+                                @endif
                                 @if (auth()->user()->provider == 'simple')
+                                <a class="dropdown-item" href="{{ route('adminList')}}">
+                                    <i class="fa-solid fa-user fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
+                                    Admin & User List
+                                </a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('passwordChangePage')}}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password
                                 </a>
-                                @endif
                                 <div class="dropdown-divider"></div>
                                     <form  method="POST" action="{{ route('logout') }}">
                                         @csrf

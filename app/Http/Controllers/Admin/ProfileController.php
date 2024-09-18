@@ -43,7 +43,6 @@ class ProfileController extends Controller
                         'provider' =>'simple' ,
                     ];
                     User::create($adminAccount);
-
                     Alert::success('Create Success', 'Create New Admin Account  Successfully');
                     return back();
                 }

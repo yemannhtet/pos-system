@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
 
         // authenticated function for user role
-        if($request->user()->role == 'admin'){
+        if($request->user()->role == 'admin' || $request->user()->role == 'superadmin' ){
             return to_route('adminDashboard');
         }
         if($request->user()->role == 'user'){
