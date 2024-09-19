@@ -61,5 +61,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
     Route::prefix('role')->group(function(){
         Route::get('list', [RoleController::class, 'adminList'])->name('adminList');
         Route::get('delete/{id}', [RoleController::class, 'destroy'])->name('adminDelete');
+        Route::get('changeUserRole/{id}', [RoleController::class, 'changeUserRole'])->name('changeUserRole');
+
+        // user list
+        Route::get('userlist', [RoleController::class, 'userList'])->name('userList');
+        Route::get('deleteUser/{id}', [RoleController::class, 'destroyUser'])->name('userDelete');
+        Route::get('changeAdminRole/{id}', [RoleController::class, 'changeAdminRole'])->name('changeAdminRole');
      });
 });

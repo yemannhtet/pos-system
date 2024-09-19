@@ -33,9 +33,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fa-solid fa-lemon"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Code Lab Studio</div>
+                <div class="sidebar-brand-text mx-3">Fruitiable Website </div>
             </a>
 
             <!-- Divider -->
@@ -66,7 +66,7 @@
                 <a class="nav-link" href="{{ route('paymentList') }}"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('adminList')}}"><i class="fa-solid fa-user"></i><span>Admin & User List  </span></a>
+                <a class="nav-link" href="{{ route('adminList')}}"><i class="fa-solid fa-address-book"></i><span>Admin & User List  </span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>

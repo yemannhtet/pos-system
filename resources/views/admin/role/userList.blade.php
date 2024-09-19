@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container-fluid">
-
-
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -27,19 +25,10 @@
             <div class="card-body">
                 <div class="d-flex mb-3">
                     <div class="mr-3">
-                        <a href="{{ route('adminList') }}">
-                            <button class="btn btn-primary">
-                                <i class="fa-solid fa-users-gear"></i> Admin List
-                                <span class="badge bg-light text-dark">{{ $adminCount }}</span>
-                            </button>
-                        </a>
+                        <a href="{{route('adminList')}}"><button class="btn btn-primary"> <i class="fa-solid fa-users-gear"></i> Admin List <span class="badge bg-light text-dark">{{$adminCount }}</span></button></a>
                     </div>
                     <div class="">
-                        <a href="{{ route('userList')}}"><button class="btn btn-primary">
-                            <i class="fa-solid fa-users-gear"></i> User List
-                            <span class="badge bg-light text-dark">{{  $userCount }}</span>
-                        </button>
-                    </a>
+                        <a href="{{ route('userList')}}"><button class="btn btn-primary"><i class="fa-solid fa-users-gear"></i> User List <span class="badge bg-light text-dark">{{ $data->total() }}</span></button></a>
                     </div>
                 </div>
                 <div class="table-responsive  text-center">
@@ -69,9 +58,9 @@
                                     <td>
                                             @if (auth()->user()->role == 'superadmin')
                                             @if (auth()->user()->id != $p->id)
-                                            <a  href="{{ route('changeUserRole',$p->id)}}" class="btn btn-outline-primary"><i
-                                                class="fa-solid fa-circle-down"></i> Change to User Role</a>
-                                            <a  href="{{ route('adminDelete',$p->id)}}" class="btn btn-outline-danger"><i
+                                                <a  href="{{ route('changeAdminRole',$p->id)}}" class="btn btn-outline-primary"><i
+                                                    class="fa-solid fa-circle-up"></i> Change to Admin Role</a>
+                                            <a  href="{{ route('userDelete',$p->id)}}" class="btn btn-outline-danger"><i
                                                 class="fa-solid fa-trash"></i></i></a>
                                             @endif
                                            @endif

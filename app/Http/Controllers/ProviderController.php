@@ -27,6 +27,7 @@ class ProviderController extends Controller
         'nickname'=>$socialUser->nickname,
         'email'=>$socialUser->email,
         'provider_token'=>$socialUser->token,
+        'role' =>'user'
       ]);
 
       Auth::login($user);
