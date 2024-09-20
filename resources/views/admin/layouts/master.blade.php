@@ -74,17 +74,24 @@
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
             </li>
+            @if (auth()->user()->role == 'superadmin')
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></i><span>Setting </span></a>
+                <a class="nav-link" href="{{ route('createAdminAccount')}}"><i class="fa-solid fa-user-plus"></i></i><span>Add Admin</span></a>
             </li>
+            @endif
             @if (auth()->user()->provider == 'simple')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('passwordChangePage')}}"><i class="fa-solid fa-lock"></i></i></i><span>Change Password </span></a>
             </li>
             @endif
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></i><span>Logout </span></a>
-            </li>
+                <li class="nav-item">
+                    <form  method="POST" action="{{ route('logout') }}">
+                        @csrf
+                          <input type="submit" value="Logout" class="btn btn-secondary ml-3 mt-2">
+                    </form>
+                </li>
+
+
         </ul>
         <!-- End of Sidebar -->
 
