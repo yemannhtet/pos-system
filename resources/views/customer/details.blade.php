@@ -34,13 +34,18 @@
                             <h5 class="fw-bold mb-3"><i class="fa-solid fa-money-bill-wave"></i> {{ $product->price }} (MMK)
                             </h5>
                             <div class="d-flex mb-4">
+                                @php   $stars = number_format($productRating )  @endphp
+                                @for ($i=1; $i <=$stars ; $i++)
                                 <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
+                                @endfor
+                                @for ($j=$stars+1;  $j<= 5  ; $j++)
+                                <i class="fa fa-star "></i>
+                                @endfor
                             </div>
+                            <span > {{ $ratingCount->count()}}Ratings</span>
+                            <hr>
                             <p class="mb-4">{{ $product->description }}</p>
+
 
                             <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
@@ -80,29 +85,30 @@
                                                          <div class="card card-body mb-2">
                                                              <div class="rating-css">
                                                                  <div class="start-icon">
-                                                                     {{-- @if ($user_rating)
-                                                                         @for ($i = 1; $i<= $ratenum;i++)
-                                                                             <input type="radio" value="{{$i}}"name="course_rating" checked id="rating{{$i}}">
-                                                                             <label for="rating{{$i}}" class="fa fa-star checked"></label>
 
-                                                                         @endfor
+                                                                    @if ($user_rating !=0)
+                                                                    @php   $userRating = number_format($user_rating )  @endphp
+                                                                            @for ($i=1; $i <=$userRating ; $i++)
+                                                                                     <input type="radio"value="{{ $i}}"  id="rating{{ $i}}"  name="productRating" checked >
+                                                                                        <label for="rating{{ $i}}" class="fa fa-star" checked></label>
+                                                                            @endfor
+                                                                                 @for ($j= $userRating +1;  $j<= 5  ; $j++)
+                                                                                 <input type="radio"value="{{ $j}}"  id="rating{{ $j}}"  name="productRating"  >
+                                                                                 <label for="rating{{ $j}}" class="fa fa-star"></label>
+                                                                             @endfor
+                                                                        @else
+                                                                        <input type="radio" id="rating1"  name="productRating" checked value="1">
+                                                                        <label for="rating1" class="fa fa-star"></label>
+                                                                        <input type="radio"  id="rating2"  name="productRating" value="2">
+                                                                        <label for="rating2" class="fa fa-star"></label>
+                                                                        <input type="radio"  id="rating3" name="productRating"  value="3">
+                                                                        <label for="rating3" class="fa fa-star"></label>
+                                                                        <input type="radio" id="rating4"  name="productRating" value="4">
+                                                                        <label for="rating4" class="fa fa-star"></label>
+                                                                        <input type="radio" id="rating5"  name="productRating" value="5">
+                                                                        <label for="rating5" class="fa fa-star"></label>
+                                                                    @endif
 
-                                                                         @for ($j =$ratenum+1;$j<=5;$j++)
-                                                                             <input type="radio" value="{{$j}}"name="course_rating" checked id="rating{{$j}}">
-                                                                             <label for="rating{{$j}}" class="fa fa-star checked"></label>
-
-                                                                         @endfor
-                                                                    @else --}}
-                                                                    <input type="radio" id="rating1"  name="productRating" checked value="1">
-                                                                    <label for="rating1" class="fa fa-star"></label>
-                                                                    <input type="radio"  id="rating2"  name="productRating" value="2">
-                                                                    <label for="rating2" class="fa fa-star"></label>
-                                                                    <input type="radio"  id="rating3" name="productRating"  value="3">
-                                                                    <label for="rating3" class="fa fa-star"></label>
-                                                                    <input type="radio" id="rating4"  name="productRating" value="4">
-                                                                    <label for="rating4" class="fa fa-star"></label>
-                                                                    <input type="radio" id="rating5"  name="productRating" value="5">
-                                                                    <label for="rating5" class="fa fa-star"></label>
                                                                  </div>
                                                              </div>
                                                          </div>
@@ -228,135 +234,30 @@
     <h1 class="fw-bold mb-0">Related products</h1>
     <div class="vesitable">
         <div class="owl-carousel vegetable-carousel justify-content-center">
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Parsely</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                    </div>
+            @foreach (  $productList as  $item)
+                @if ($product->id != $item->id)
+                <div class="border border-primary rounded position-relative vesitable-item">
+                    <div class="vesitable-img">
+                        <a href="{{ route('details',$item->id)}}"> <img style="width:100%;  height: 250px;"  src="{{ asset('images/'.$item->image) }}" class="img-fluid w-100 rounded-top" alt=""></a>
 
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Parsely</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                    </div>
+                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
+                        {{$item->category_name}}</div>
+                    <div class="p-4 pb-0 rounded-bottom">
+                        <h4> {{$item->name}}</h4>
+                        <p>   {{ implode(' ', array_slice(explode(' ', $item->description), 0, 20)) }}{{ str_word_count($item->description) > 20 ? '...' : '' }}
+
+                        <div class="d-flex justify-content-between flex-lg-wrap">
+                            <p class="text-dark fs-5 fw-bold"><i class="fa-solid fa-money-bill-wave"></i> {{$item->price}}(MMK) </p>
+                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
+                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Banana</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Bell Papper</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Potatoes</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Parsely</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Potatoes</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                    Vegetable</div>
-                <div class="p-4 pb-0 rounded-bottom">
-                    <h4>Parsely</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                    </div>
-                </div>
-            </div>
+                @endif
+
+
+            @endforeach
         </div>
     </div>
     </div>

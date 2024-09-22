@@ -61,8 +61,18 @@ class ShopController extends Controller
                                                 ->orderBy('created_at','desc')
                                                 ->get();
 
-        $ratingSum =Rating::where('product_id',$id)->avg('count');
-        return view('customer.details',compact('product','comment'));
+        $productRating =Rating::where('product_id',$id)->avg('count');
+
+        $ratingCount = Rating::where('product_id',$id)->get();
+
+
+        $user_rating = Rating::select('count')->where('product_id',$id)->where('user_id',Auth::user()->id)->first();
+        $user_rating = $user_rating == null ? 0 : $user_rating = $user_rating['count'];
+
+        $productList = Product::select('products.id','products.name', 'products.price', 'products.count','products.category_id', 'products.description','products.image', 'categories.name as category_name')
+                                        ->leftJoin('categories', 'products.category_id', 'categories.id')
+                                        ->get();
+        return view('customer.details',compact('product','comment','productRating','ratingCount','user_rating','productList'));
     }
 
     //comment
