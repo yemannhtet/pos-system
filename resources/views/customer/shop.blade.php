@@ -170,11 +170,26 @@
                                                             <p class="text-dark fs-5 fw-bold mb-2"><i
                                                                     class="fa-solid fa-money-bill-wave"></i>
                                                                 {{ $p->price }}(MMK) </p>
-                                                            <a href="#"
-                                                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add
-                                                                to
-                                                                cart</a>
+                                                                <form action="{{route('addToCart')}}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="product_id" value="{{ $p->id}}">
+                                                                        <div class="input-group quantity mb-5" style="width: 100px;">
+                                                                        <div class="input-group-btn">
+                                                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
+                                                                                <i class="fa fa-minus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <input type="text" class="form-control form-control-sm text-center border-0" name="qty"
+                                                                            value="1">
+                                                                        <div class="input-group-btn">
+                                                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border"  type="button">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="submit"  class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</button>
+                                                                  </form>
                                                         </div>
                                                     </div>
                                                 </div>

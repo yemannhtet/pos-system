@@ -78,31 +78,62 @@
                         <a href="{{ route('userDashboard') }}" class="nav-item nav-link active">Home</a>
                         <a href="{{ route('shopList') }}" class="nav-item nav-link">Shop</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <input type="submit" value="Logout" class="btn btn-outline-success">
-                        </form>
+
                     </div>
-                    <div class="d-flex m-3 me-0">
-                        <button
+                    <div class="d-flex align-items-center justify-content-center">
+                        <a href="{{ route('cartDetails')}}"
                             class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                            data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                class="fas fa-search text-primary"></i></button>
+                          >
+                            <i class="fa-solid fa-cart-shopping text-primary"></i>
+                        </a>
                         <a href="#" class="position-relative me-4 my-auto">
                             <i class="fa fa-shopping-bag fa-2x"></i>
                             <span
                                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                 style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                         </a>
-                        <a href="#" class="my-auto">
-                            <i class="fas fa-user fa-2x"></i>
-                            @if (auth()->user()->name != null)
-                                {{auth()->user()->name}}
-                            @else
-                            {{auth()->user()->nickname}}
-                            @endif
-                        </a>
+                        <li class="nav-item dropdown no-arrow me-4">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    @if (auth()->user()->name != null)
+                                        {{auth()->user()->name}}
+                                    @else
+                                        {{auth()->user()->nickname}}
+                                    @endif
+                                </span>
+                                @if (auth()->user()->profile == null)
+                                    <img class="img-profile rounded-circle" style="width:40px; height:40px;"
+                                         src="{{ asset('admin/img/images.png') }}">
+                                @else
+                                    <img class="img-profile rounded-circle" style="width:40px; height:40px;"
+                                         src="{{ asset('adminProfile/'.auth()->user()->profile) }}">
+                                @endif
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{route('userProfileDetails')}}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+
+                                @if (auth()->user()->provider == 'simple')
+                                    <a class="dropdown-item" href="{{ route('passwordChangePage')}}">
+                                        <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Change Password
+                                    </a>
+                                @endif
+
+                                <div class="dropdown-divider"></div>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <input type="submit" value="Logout" class="btn btn-outline-success ms-2">
+                                </form>
+                            </div>
+                        </li>
                     </div>
+
                 </div>
             </nav>
         </div>
@@ -217,6 +248,7 @@
     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
             class="fa fa-arrow-up"></i></a>
     <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-JobWAqYk5CSjWuVV3mxgS+MmccJqkrBaDhk8SKS1BW+71dJ9gzascwzW85UwGhxiSyR7Pxhu50k+Nl3+o5I49A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ asset('customer/lib/easing/easing.min.js') }}"></script>
@@ -226,6 +258,18 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('customer/js/main.js') }}"></script>
+    <script>
+        function loadFile(event){
+            var reader = new FileReader();
+
+            reader.onload = function(){
+                var output = document.getElementById('output')
+                output.src = reader.result
+            }
+            reader.readAsDataURL(event.target.files[0])
+        }
+</script>
+@yield('js-section')
 </body>
 
 </html>

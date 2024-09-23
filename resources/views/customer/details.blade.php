@@ -47,23 +47,26 @@
                             <p class="mb-4">{{ $product->description }}</p>
 
 
-                            <div class="input-group quantity mb-5" style="width: 100px;">
+                        <form action="{{route('addToCart')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id}}">
+                                <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control form-control-sm text-center border-0"
+                                <input type="text" class="form-control form-control-sm text-center border-0" name="qty"
                                     value="1">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border"  type="button">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-                            <a href="#"
-                                class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                            <button type="submit"  class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</button>
+                          </form>
                                     <br>
                                    {{-- rating start  --}}
                                    <form action="{{ route('addRating')}}" method="post">
@@ -249,8 +252,26 @@
 
                         <div class="d-flex justify-content-between flex-lg-wrap">
                             <p class="text-dark fs-5 fw-bold"><i class="fa-solid fa-money-bill-wave"></i> {{$item->price}}(MMK) </p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                            <form action="{{route('addToCart')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id}}">
+                                    <div class="input-group quantity mb-5" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm text-center border-0" name="qty"
+                                        value="1">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border"  type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit"  class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</button>
+                              </form>
                         </div>
                     </div>
                 </div>
@@ -264,3 +285,4 @@
     </div>
     <!-- Single Product End -->
 @endsection
+@yield('js-section')

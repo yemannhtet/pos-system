@@ -128,13 +128,7 @@
                                 <span class="text-dark" style="width: 130px;">All Products</span>
                             </a>
                         </li>
-                        @foreach ($categories as $item )
-                        <li class="nav-item">
-                            <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
-                                <span class="text-dark" style="width: 130px;">{{ $item->name }}</span>
-                            </a>
-                        </li>
-                        @endforeach
+
 
                     </ul>
                 </div>
@@ -144,27 +138,56 @@
                     <div class="row g-4">
                         <div class="col-lg-12">
                             <div class="row g-4">
-                                @foreach ( $products as $p )
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                                <img style="width:100%;  height: 250px;" src="{{ asset('images/'.$p->image) }}" class="img-fluid rounded-top" alt="" >
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{$p->category_name}}</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>{{ $p->name}}</h4>
-                                            <p>
-                                                {{ implode(' ', array_slice(explode(' ', $p->description), 0, 20)) }}{{ str_word_count($p->description) > 20 ? '...' : '' }}
-                                            </p>
+                                @php
+                                    $count = 1;
+                                @endphp
+                                              @foreach ( $products as $p )
+                                                @if ($count<=4)
+                                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="rounded position-relative fruite-item">
+                                                        <div class="fruite-img">
+                                                                <img style="width:100%;  height: 250px;" src="{{ asset('images/'.$p->image) }}" class="img-fluid rounded-top" alt="" >
+                                                        </div>
+                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{$p->category_name}}</div>
+                                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                            <h4>{{ $p->name}}</h4>
+                                                            <p>
+                                                                {{ implode(' ', array_slice(explode(' ', $p->description), 0, 20)) }}{{ str_word_count($p->description) > 20 ? '...' : '' }}
+                                                            </p>
 
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-3"><i class="fa-solid fa-money-bill-wave"></i> {{$p->price}}(MMK) </p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
+                                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                                <p class="text-dark fs-5 fw-bold mb-3"><i class="fa-solid fa-money-bill-wave"></i> {{$p->price}}(MMK) </p>
+                                                                <form action="{{route('addToCart')}}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="product_id" value="{{ $p->id}}">
+                                                                        <div class="input-group quantity mb-5" style="width: 100px;">
+                                                                        <div class="input-group-btn">
+                                                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
+                                                                                <i class="fa fa-minus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <input type="text" class="form-control form-control-sm text-center border-0" name="qty"
+                                                                            value="1">
+                                                                        <div class="input-group-btn">
+                                                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border"  type="button">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="submit"  class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</button>
+                                                                  </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                @php
+                                                $count++;
+                                            @endphp
+                                              @endforeach
+
+
 
                             </div>
                         </div>
@@ -684,84 +707,54 @@
     <div class="container py-5">
         <div class="testimonial-header text-center">
             <h4 class="text-primary">Our Testimonial</h4>
-            <h1 class="display-5 mb-5 text-dark">Our Client Saying!</h1>
+            <h1 class="display-5 mb-5 text-dark">Our Customer Saying!</h1>
         </div>
         <div class="owl-carousel testimonial-carousel">
+            @foreach ($rating as  $item )
+
+
             <div class="testimonial-item img-border-radius bg-light rounded p-4">
                 <div class="position-relative">
                     <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
                     <div class="mb-4 pb-4 border-bottom border-secondary">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        <p class="mb-0">11rem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
                         </p>
                     </div>
                     <div class="d-flex align-items-center flex-nowrap">
                         <div class="bg-secondary rounded">
-                            <img src="img/testimonial-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                            @if ($item->profile != null)
+                            <img src="{{ asset('adminProfile/' . $item->profile) }}"
+                                class="img-fluid rounded-circle p-3"
+                                style="width: 100px; height: auto;" alt="">
+                        @else
+                            <img src="{{ asset('admin/img/images.png') }}"
+                                class="img-fluid rounded-circle p-3"
+                                style="width: 100px; height: auto;" alt="">
+                        @endif
                         </div>
                         <div class="ms-4 d-block">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
+                            <h4 class="text-dark">Customer Name</h4>
+                            <p class="m-0 pb-3">
+                                @if ($item->name != null)
+                                {{$item->name}}
+                               @else
+                              {{$item->nickname}}
+                              @endif
+                            </p>
                             <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
+                                @php   $stars = number_format($item->count )  @endphp
+                                @for ($i=1; $i <=$stars ; $i++)
+                                <i class="fa fa-star text-secondary"></i>
+                                @endfor
+                                @for ($j=$stars+1;  $j<= 5  ; $j++)
+                                <i class="fa fa-star "></i>
+                                @endfor
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                <div class="position-relative">
-                    <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                    <div class="mb-4 pb-4 border-bottom border-secondary">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        </p>
-                    </div>
-                    <div class="d-flex align-items-center flex-nowrap">
-                        <div class="bg-secondary rounded">
-                            <img src="img/testimonial-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                        </div>
-                        <div class="ms-4 d-block">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                <div class="position-relative">
-                    <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                    <div class="mb-4 pb-4 border-bottom border-secondary">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        </p>
-                    </div>
-                    <div class="d-flex align-items-center flex-nowrap">
-                        <div class="bg-secondary rounded">
-                            <img src="img/testimonial-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                        </div>
-                        <div class="ms-4 d-block">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -852,7 +845,7 @@
                 <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                 <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                 <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                Designed By <a class="border-bottom" href="#">HTML Codex</a> Distributed By <a class="border-bottom" href="#">ThemeWagon</a>
             </div>
         </div>
     </div>
