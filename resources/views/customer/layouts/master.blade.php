@@ -87,10 +87,7 @@
                             <i class="fa-solid fa-cart-shopping text-primary"></i>
                         </a>
                         <a href="{{ route('orderList')}}" class="position-relative me-4 my-auto">
-                            <i class="fa-solid fa-clipboard-list fa-2x"></i>
-                            <span
-                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                            <i class="fa-solid fa-bag-shopping fa-2x"></i>
                         </a>
                         <li class="nav-item dropdown no-arrow me-4">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"

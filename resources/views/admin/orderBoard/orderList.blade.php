@@ -12,9 +12,7 @@
                 <div class="">
                     <h6 class="m-0 font-weight-bold text-primary">Category List</h6>
                 </div>
-                <div class="">
-                    <a href="#"><i class="fa-solid fa-plus"></i> Add Category</a>
-                </div>
+
             </div>
         </div>
         <div class="card-body">
@@ -25,8 +23,6 @@
                             <th>date</th>
                             <th>order code</th>
                             <th>user name </th>
-                            <th>product name</th>
-                            <th>price</th>
                             <th class="col-3">action</th>
                         </tr>
                     </thead>
@@ -35,14 +31,18 @@
                                 @foreach ($order as $item )
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($item->order_date)->format('d-M-Y') }}</td>
-                                        <td>{{ $item-> order_code}}</td>
+                                        <td><a href="{{ route('adminOrderDetails', $item-> order_code)}}">{{ $item-> order_code}}</a></td>
                                         <td>{{ $item-> user_name}}</td>
-                                        <td>{{ $item->product_name }}</td>
-                                        <td>{{ $item->total_price}}</td>
+
                                         <td class="d-flex justify-content-arround">
-                                                <button class="btn btn-sm btn-warning mr-2">Pending</button>
-                                                <button class="btn btn-sm btn-success mr-2">success</button>
-                                                <button class="btn btn-sm btn-danger mr-2">reject</button>
+                                               <select name="" id="" class="form-control ">
+                                                <option value="1" @if ($item->status == 0)selected
+                                                @endif >Pending</option>
+                                                <option value="2" @if ($item->status == 1)selected
+                                                @endif >Success</option>
+                                                <option value="3" @if ($item->status == 2)selected
+                                                @endif >Reject</option>
+                                               </select>
                                         </td>
                                     </tr>
                                 @endforeach
