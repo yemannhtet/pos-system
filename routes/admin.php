@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderBoardController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
 
@@ -67,5 +68,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::get('userlist', [RoleController::class, 'userList'])->name('userList');
         Route::get('deleteUser/{id}', [RoleController::class, 'destroyUser'])->name('userDelete');
         Route::get('changeAdminRole/{id}', [RoleController::class, 'changeAdminRole'])->name('changeAdminRole');
+     });
+     Route::prefix('order')->group(function(){
+        Route::get('list', [OrderBoardController::class, 'adminOrderList'])->name('adminOrderList');
+
      });
 });

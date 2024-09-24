@@ -1,7 +1,17 @@
 @extends('customer.layouts.master')
 @section('content')
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">Cart</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+        <li class="breadcrumb-item active text-white">Cart</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
     <!-- Cart Page Start -->
-    <div class="container-fluid py-5" style="margin-top: 13%;">
+    <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="table-responsive">
                 <table class="table" id="dataTable">
@@ -15,9 +25,12 @@
                             <th scope="col">Handle</th>
                         </tr>
                     </thead>
+                    <input type="hidden" class="userId" value="{{auth()->user()->id}}">
                     <tbody>
                         @foreach ($cart as $item )
+
                         <tr>
+                            <input type="hidden" class="product_id" value="{{$item->product_id}}">
                             <th scope="row">
                                 <div class="d-flex align-items-center">
                                     <img src="{{ asset('images/'.$item->image) }}" class="img-fluid me-5 rounded-circle"
@@ -81,11 +94,25 @@
                             </div>
                             <p class="mb-0 text-end">City transportation fee</p>
                         </div>
-                        <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+
+                        <div class="py-4 mb-4  border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
-                            <p class="mb-0 pe-4" id="finalFee">{{$totalPrice + 500}} mmk</p>
+                            <p class="mb-0 pe-4" id="finalFee">{{$totalPrice + 1000}} mmk</p>
                         </div>
-                        <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                        <div class="py-4 mb-4  border-bottom d-flex justify-content-between">
+                            <div class="mb-0 ps-4 me-4" style="font-size:18px; font-weight:600; color:#46585a;">
+                                Payment Type
+                            </div>
+                            <div class="mb-0 pe-4">
+                                <select name="paymentType" id="" class="form-control mb-3 ">
+
+                                    @foreach ($payment as $item )
+                                        <option value="{{$item->id}}">{{$item->type}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <button id="checkOut"  class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
                             type="button">Proceed Checkout</button>
                     </div>
                 </div>
@@ -146,6 +173,43 @@ $(document).ready(function() {
         $("#finalFee").html((totalPrice + 1000 )+ " mmk");
     }
 });
+
+$('#checkOut').click(function() {
+    let orderList = [];
+    let orderCode = Math.floor(Math.random() * 100000000);
+    let userId = $(".userId").val();
+    let totalPrice = $("#finalFee").text().replace("mmk","").trim();
+
+
+    $("#dataTable tbody tr").each(function(item, row) {
+        let productId = $(row).find('.product_id').val();
+        let qty = $(row).find('#qty').val();
+
+        orderList.push({
+            'user_id': userId,
+            'product_id': productId,
+            'ordercode': 'KOSHWE' + orderCode,
+            'total_price': totalPrice,
+            'qty': qty
+        });
+    });
+
+    $.ajax({
+    type: 'GET',
+    url: 'order',
+    data: Object.assign({},orderList),
+    dataType: 'json',
+    success: function(response) {
+
+        if (response.message === 'success') {
+            location.href = "/customer/shop";
+        }
+    }
+});
+
+});
+
+
 
 
 

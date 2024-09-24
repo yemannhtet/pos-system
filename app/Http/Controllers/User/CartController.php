@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\user;
 
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,10 @@ class CartController extends Controller
         foreach($cart as $item){
             $totalPrice += $item->price*$item->qty ;
         }
-        return view('customer.cart',compact('cart','totalPrice'));
+
+        $payment = Payment::get();
+
+        return view('customer.cart',compact('cart','totalPrice','payment'));
     }
     //add to cart proceess
     public function addToCart(Request $request){
@@ -58,5 +63,33 @@ class CartController extends Controller
         return response()->json($serverResponse, 200);
     }
 
+    //order process
+    public function order(Request $request){
 
+        foreach($request->all() as $item){
+            logger($item);
+            Order::create([
+                'user_id' => $item['user_id'],
+                'product_id' => $item['product_id'],
+                'order_code' => $item['ordercode'],
+                'status' => 0,
+                'count' =>$item['qty'],
+               'total_price'=>$item['total_price']
+            ]);
+
+            Cart::where('user_id',$item['user_id'])->where('product_id',$item['product_id'])->delete();
+
+        }
+        $serverResponse = [
+            'message' => 'success'
+        ];
+
+        return response()->json($serverResponse, 200);
+    }
+
+    public function orderList(){
+
+        $order = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
+        return view('customer.orderList',compact('order'));
+    }
 }

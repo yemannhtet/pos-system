@@ -30,12 +30,7 @@ class ShopController extends Controller
         if(request('minPrice') == null && request('maxPrice') != null)    {
             $products = $products->where('products.price','<=',request('maxPrice'));
         }
-//             $products = $products->when(request('minPrice'),function($query){
-//                                 $query->where('products.price','>=',request('minPrice'));
-//             });
-//             $products = $products->when(request('maxPrice'),function($query){
-//                 $query->where('products.price','<=',request('maxPrice'));
-// });
+
           $products = $products->select('products.*', 'categories.name as category_name')
                             ->leftJoin('categories', 'products.category_id', 'categories.id');
 

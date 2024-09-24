@@ -32,4 +32,6 @@ Route::prefix('cart')->group(function(){
     Route::get('cart', [CartController::class, 'cartDetails'])->name('cartDetails');
     Route::post('addToCart', [CartController::class, 'addToCart'])->name('addToCart');
     Route::get('remove/cart', [CartController::class, 'removeCart'])->name('removeCart');
+    Route::get('order', [CartController::class, 'order'])->name('order');
+    Route::get('orderList', [CartController::class, 'orderList'])->name('orderList');
 });
