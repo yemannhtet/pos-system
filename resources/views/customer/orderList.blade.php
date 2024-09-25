@@ -18,8 +18,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Order Code </th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Order Date</th>
                         <th scope="col">Order Status</th>
                     </tr>
                 </thead>
@@ -27,14 +26,13 @@
                     @foreach ($order as $o)
                     <tr>
                             <td >
-                                <p class="mb-0 mt-4">{{$o->order_code}}</p>
-                            </td>
+                              <a href="{{ route('userOrderDetails', $o-> order_code)}}">
+                                <p class="mb-0 mt-4 text-decoration-underline">{{$o->order_code}}</p>
+                            </a>
+                              </td>
                             <td >
                                 <p class="mb-0 mt-4">   {{ $o->created_at->format('d -M-Y ') }}
                                 </p>
-                            </td>
-                            <td >
-                                <p class="mb-0 mt-4">{{$o->total_price}}mmk</p>
                             </td>
                             <td >
                                 <p class="mb-0 mt-4">

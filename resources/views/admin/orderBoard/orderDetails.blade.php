@@ -34,6 +34,7 @@
                         </div>
                     </div>
                 </div>
+
     </div>
     </div>
     <!-- DataTales Example -->
@@ -70,6 +71,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <span class="d-flex justify-content-end">
+                    {{ $order->links('pagination::bootstrap-5') }}
+                </span>
             </div>
         </div>
 

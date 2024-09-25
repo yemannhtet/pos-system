@@ -16,7 +16,7 @@ class OrderBoardController extends Controller
                                     ->leftJoin('users','orders.user_id','users.id')
                                     ->groupBy( 'orders.order_code')
                                     ->orderBy( 'orders.created_at','desc')
-                                    ->get();
+                                    ->paginate(5);
         return view('admin.orderBoard.orderList',compact('order'));
     }
 
@@ -26,7 +26,7 @@ class OrderBoardController extends Controller
         ->leftJoin('products','orders.product_id','products.id')
         ->leftJoin('users','orders.user_id','users.id')
         ->where('orders.order_code',$orderCode)
-        ->get();
+        ->paginate(3);
 
         $totalPrice = 0;
         foreach($order as $item){
@@ -35,5 +35,14 @@ class OrderBoardController extends Controller
 
 
         return view('admin.orderBoard.orderDetails',compact('order','totalPrice'));
+    }
+
+
+    // change status function
+
+    public function changeStatus(Request $request){
+     Order::where('order_code',$request->ordercode)->update([
+            'status' => $request->status
+     ]);
     }
 }

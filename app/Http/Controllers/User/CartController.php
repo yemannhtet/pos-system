@@ -8,6 +8,7 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -66,9 +67,10 @@ class CartController extends Controller
     //order process
     public function order(Request $request){
 
+        $orderArr = [];
         foreach($request->all() as $item){
-            logger($item);
-            Order::create([
+
+            array_push($orderArr,[
                 'user_id' => $item['user_id'],
                 'product_id' => $item['product_id'],
                 'order_code' => $item['ordercode'],
@@ -77,7 +79,16 @@ class CartController extends Controller
                'total_price'=>$item['total_price']
             ]);
 
-            Cart::where('user_id',$item['user_id'])->where('product_id',$item['product_id'])->delete();
+
+            Session::put('orderList',$orderArr);
+
+            logger(Session::get('orderList'));
+
+            // Order::create([
+
+            // ]);
+
+            // Cart::where('user_id',$item['user_id'])->where('product_id',$item['product_id'])->delete();
 
         }
         $serverResponse = [
@@ -89,7 +100,43 @@ class CartController extends Controller
 
     public function orderList(){
 
-        $order = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
+        $order = Order::where('user_id',Auth::user()->id)
+                        ->groupBy('order_code')
+                        ->orderBy('created_at','desc')
+                        ->get();
+
         return view('customer.orderList',compact('order'));
     }
+
+    //order details
+    public function userOrderDetails($orderCode){
+
+        $order = Order::select('users.name as customer_name','products.image as product_image','products.name as product_name','products.price as product_price','orders.count as order_count','orders.created_at as order_date','orders.order_code')
+        ->leftJoin('products','orders.product_id','products.id')
+        ->leftJoin('users','orders.user_id','users.id')
+        ->where('orders.order_code',$orderCode)
+        ->get();
+
+        $totalPrice = 0;
+        foreach($order as $item){
+            $totalPrice += $item->order_count * $item->product_price;
+        }
+
+
+        return view('customer.orderDetails',compact('order','totalPrice'));
+    }
+
+    public function payment() {
+        $orderProduct =Session::get('orderList');
+        $payment = Payment::get();
+
+        $total = 0;
+        foreach($orderProduct as $item)
+
+        $total += $item['total_price'];
+
+        // dd($total);
+        return view('customer.payment', compact('payment'));
+    }
+
 }

@@ -72,5 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
      Route::prefix('order')->group(function(){
         Route::get('list', [OrderBoardController::class, 'adminOrderList'])->name('adminOrderList');
         Route::get('details/{orderCode}', [OrderBoardController::class, 'adminOrderDetails'])->name('adminOrderDetails');
+        Route::get('change/status', [OrderBoardController::class, 'changeStatus'])->name('changeStatus');
+
      });
 });

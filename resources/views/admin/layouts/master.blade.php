@@ -214,7 +214,10 @@
     <!-- Page level custom scripts -->
     <script src="{{asset('admin/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset('admin/js/demo/chart-pie-demo.js')}}"></script>
+{{-- jquery cdn --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{-- photots load function of product  --}}
+
     <script>
             function loadFile(event){
                 var reader = new FileReader();
@@ -226,7 +229,7 @@
                 reader.readAsDataURL(event.target.files[0])
             }
     </script>
-
+@yield('script-section')
 </body>
 
 </html>

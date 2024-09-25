@@ -151,7 +151,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(response) {
         if (response.message === 'success') {
-            location.reload();
+            location.href = "payment";
         }
     },
     error: function(xhr, status, error) {
@@ -202,7 +202,7 @@ $('#checkOut').click(function() {
     success: function(response) {
 
         if (response.message === 'success') {
-            location.href = "/customer/shop";
+            location.href = "payment";
         }
     }
 });

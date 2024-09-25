@@ -30,31 +30,55 @@
 
                                 @foreach ($order as $item )
                                 <tr>
+                                    <input type="hidden" id="orderCode" value="{{$item->order_code}}">
                                     <td>{{ \Carbon\Carbon::parse($item->order_date)->format('d-M-Y') }}</td>
                                         <td><a href="{{ route('adminOrderDetails', $item-> order_code)}}">{{ $item-> order_code}}</a></td>
                                         <td>{{ $item-> user_name}}</td>
 
                                         <td class="d-flex justify-content-arround">
-                                               <select name="" id="" class="form-control ">
-                                                <option value="1" @if ($item->status == 0)selected
-                                                @endif >Pending</option>
-                                                <option value="2" @if ($item->status == 1)selected
-                                                @endif >Success</option>
-                                                <option value="3" @if ($item->status == 2)selected
-                                                @endif >Reject</option>
-                                               </select>
+                                            <select name="status" class="form-control statusChange">
+                                                <option value="0" @if ($item->status == 0) selected @endif>Pending</option>
+                                                <option value="1" @if ($item->status == 1) selected @endif>Success</option>
+                                                <option value="2" @if ($item->status == 2) selected @endif>Reject</option>
+                                            </select>
+
                                         </td>
                                     </tr>
                                 @endforeach
 
                     </tbody>
                 </table>
+                <span class="d-flex justify-content-end">
+                    {{ $order->links('pagination::bootstrap-5') }}
+                </span>
             </div>
         </div>
     </div>
 
 </div>
 <!-- /.container-fluid -->
+@endsection
 
+@section('script-section')
+<script>
+$(document).ready(function() {
+    $('.statusChange').change(function() {
+        var currentStatus = $(this).val();
+        var orderCode = $(this).parents("tr").find("#orderCode").val();
+
+        var data = {
+            'status': currentStatus,
+            'ordercode': orderCode
+        };
+        $.ajax({
+                type: 'get',
+                url: 'change/status',
+                data: data,
+                dataType: 'json',
+      })
+    });
+});
+
+</script>
 
 @endsection
