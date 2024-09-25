@@ -135,8 +135,12 @@ class CartController extends Controller
 
         $total += $item['total_price'];
 
-        // dd($total);
-        return view('customer.payment', compact('payment'));
+    //   dd($orderProduct);
+        return view('customer.payment', compact('payment','orderProduct','total'));
     }
 
-}
+    public function orderProduct(Request $request){
+        dd($request->all());
+    }
+
+      }

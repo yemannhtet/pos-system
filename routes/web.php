@@ -16,9 +16,10 @@ require __DIR__.'/user.php';
 Route::redirect('/','auth/login');
 
 //user login & register
-Route::get('auth/register',[AuthController::class,'registerPage'])->name('userRegister');
-Route::get('auth/login',[AuthController::class,'loginPage'])->name('userlogin');
-
+Route::middleware('admin')->group(function () {
+    Route::get('auth/register', [AuthController::class, 'registerPage'])->name('userRegister');
+    Route::get('auth/login', [AuthController::class, 'loginPage'])->name('userlogin');
+});
 
 //GITHUB AND GOOGLE LOGIN
 Route::get('/auth/{provider}/redirect', [ProviderController::class,'redirect']);

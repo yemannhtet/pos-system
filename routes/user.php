@@ -36,4 +36,5 @@ Route::prefix('cart')->group(function(){
     Route::get('orderList', [CartController::class, 'orderList'])->name('orderList');
     Route::get('details/{orderCode}', [CartController::class, 'userOrderDetails'])->name('userOrderDetails');
     Route::get('payment', [CartController::class, 'payment'])->name('payment');
+    Route::post('order/product', [CartController::class, 'orderProduct'])->name('orderProduct');
 });

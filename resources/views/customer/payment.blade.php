@@ -107,35 +107,51 @@
         <!-- Payment Methods Card -->
         <div class="col-lg-6">
             <div class="payment-card payment-methods">
-                <h5>Payment Methods</h5>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="name" class="form-label">Enter Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter Name">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="mobile" class="form-label">Mobile Number</label>
-                        <input type="text" class="form-control" id="mobile" placeholder="09xxxxxxx">
-                    </div>
-                    <div class="col-12">
-                                <Select class="form-control">
-                                    @foreach ($payment as $item )
-                                    <option value="">{{$item->type}}</option>
-                                    @endforeach
-                                </Select>
-                    </div>
-                    <div class="col-12">
-                        <label for="fileUpload" class="form-label">Choose file</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <div class="col-12">
-                        <button   class="btn border-secondary rounded-pill px-2 py-2 text-primary text-uppercase mb-4 form-control"
-                            type="button">Proceed Checkout</button>
+                <h5 class="text-primary">Payment Methods</h5>
+                <form action="{{ route('orderProduct')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label for="name" class="form-label" >နာမည်</label>
+                            <input type="text" class="form-control" id="name" placeholder="နာမည်ဖြည့်ပါ" name="name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mobile" class="form-label" >ဖုန်းနံပါတ်</label>
+                            <input type="text" class="form-control" id="mobile" placeholder="09xxxxxxx" name="phone">
+                        </div>
+                        <div class="col-6">
+                            <label  class="form-label">ငွေပေးချေမှုစနစ် </label>
+                                 <select class="form-select  mb-3" aria-label=".form-select-lg example" name="payment_type">
+                                        @foreach ($payment as $item )
+                                        <option value="">{{$item->type}}</option>
+                                        @endforeach
+                                    </Select>
+                        </div>
+                        <div class="col-md-6">
+                                <input type="hidden" name="order_code" value="{{ $orderProduct[0]['order_code'] }}">
+                            <label for="order_number" class="form-label">အော်ဒါနံပါတ်</label>
+                            <input type="text" class="form-control" id="order_number" placeholder="" value="{{ $orderProduct[0]['order_code'] }}" disabled  >
+                        </div>
+                        <div class="col-12">
+                            <label for="order_number" class="form-label" >ကျသင့်‌ငွေ</label>
+                            <input type="hidden" name="total" value="{{ $total}} ">
+                            <input type="text" class="form-control" id="order_number" placeholder="" value="{{ $total }} (contains delivary fees)" disabled name="total">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="fileUpload" class="form-label">ငွေလွှဲပြေစာ</label>
+                            <input type="file" class="form-control" name="payslip">
+                        </div>
+                        <div class="col-12">
+                            <button   class="btn border-secondary rounded-pill px-2 py-2 text-primary text-uppercase mb-4 form-control"
+                                type="submit">Order Product</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+</form>
+
 </div>
 
 <!-- Cart Page End -->

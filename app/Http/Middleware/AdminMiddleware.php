@@ -14,13 +14,18 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
-    {
-        if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin' ){
-
-             return $next($request);
+    public function handle(Request $request, Closure $next): Response{
+        if(!empty(Auth::user())){
+            if(Auth::user()->role == 'admin' || Auth::user()->role =='superadmin'){
+                if($request->route()->getName() == 'userRegister' || $request->route()->getName() == 'userlogin' ){
+                    abort(404);
+                }
+                return $next($request);
+            }
+            return back();
         }
+        return $next($request);
+     }
 
-        return back();
-    }
+
 }
