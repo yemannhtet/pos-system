@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SaleInfoController;
 use App\Http\Controllers\Admin\OrderBoardController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
@@ -46,7 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
 
     // password
     Route::prefix('password')->group(function(){
-        Route::get('change', [AuthController::class, 'passwordChangePage'])->name('passwordChangePage');
+        Route::get('change', [AuthController::class, 'passwordChangePage'])->name('changeAdminPassword');
         Route::post('change', [AuthController::class, 'passwordChange'])->name('passwordChange');
     });
 
@@ -54,6 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
     Route::prefix('profile')->group(function(){
         Route::get('details', [ProfileController::class, 'profileDetails'])->name('profileDetails');
         Route::post('update', [ProfileController::class, 'update'])->name('profileUpdate');
+        Route::get('account/{id}', [ProfileController::class, 'accountProfile'])->name('accountProfile');
         Route::get('create/adminAccount', [ProfileController::class, 'createAdminAccount'])->name('createAdminAccount');
         Route::post('create/adminAccount', [ProfileController::class, 'create'])->name('createAdmin');
      });
@@ -73,6 +75,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function()
         Route::get('list', [OrderBoardController::class, 'adminOrderList'])->name('adminOrderList');
         Route::get('details/{orderCode}', [OrderBoardController::class, 'adminOrderDetails'])->name('adminOrderDetails');
         Route::get('change/status', [OrderBoardController::class, 'changeStatus'])->name('changeStatus');
+
+     });
+     Route::prefix('saleInfo')->group(function(){
+        Route::get('list', [SaleInfoController::class, 'saleInfoList'])->name('saleInfoList');
 
      });
 });

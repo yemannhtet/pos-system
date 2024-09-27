@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->char('type', 20);
-            $table->bigInteger('account_number');
+            $table->text('account_number');
             $table->text('account_name');
             $table->timestamps();
         });

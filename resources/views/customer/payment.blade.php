@@ -19,7 +19,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
+
     }
     .payment-card, .payment-details {
         border-radius: 20px;
@@ -114,19 +114,31 @@
 
                         <div class="col-md-6">
                             <label for="name" class="form-label" >နာမည်</label>
-                            <input type="text" class="form-control" id="name" placeholder="နာမည်ဖြည့်ပါ" name="name">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="နာမည်ဖြည့်ပါ" name="name">
+                            @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="col-md-6">
                             <label for="mobile" class="form-label" >ဖုန်းနံပါတ်</label>
-                            <input type="text" class="form-control" id="mobile" placeholder="09xxxxxxx" name="phone">
+                            <input type="text" class="form-control  @error('phone') is-invalid @enderror" id="mobile" placeholder="09xxxxxxx" name="phone">
+                            @error('phone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="col-6">
                             <label  class="form-label">ငွေပေးချေမှုစနစ် </label>
-                                 <select class="form-select  mb-3" aria-label=".form-select-lg example" name="payment_type">
+                                 <select name="payment_type" class="form-select  mb-3 @error('payment_type') is-invalid @enderror" aria-label=".form-select-lg example" >
+                                    <option value="">Choose Payment Type</option>
                                         @foreach ($payment as $item )
-                                        <option value="">{{$item->type}}</option>
+                                        <option value="{{$item->id}}">{{$item->type}}</option>
                                         @endforeach
                                     </Select>
+                                    @error('payment_type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                         </div>
                         <div class="col-md-6">
                                 <input type="hidden" name="order_code" value="{{ $orderProduct[0]['order_code'] }}">
@@ -134,13 +146,16 @@
                             <input type="text" class="form-control" id="order_number" placeholder="" value="{{ $orderProduct[0]['order_code'] }}" disabled  >
                         </div>
                         <div class="col-12">
-                            <label for="order_number" class="form-label" >ကျသင့်‌ငွေ</label>
-                            <input type="hidden" name="total" value="{{ $total}} ">
+                            <label  class="form-label" >ကျသင့်‌ငွေ</label>
+                            <input type="hidden" name=" total" value="{{ $total}} ">
                             <input type="text" class="form-control" id="order_number" placeholder="" value="{{ $total }} (contains delivary fees)" disabled name="total">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="fileUpload" class="form-label">ငွေလွှဲပြေစာ</label>
+                            <label for="fileUpload" class="form-label @error('payslip') is-invalid @enderror">ငွေလွှဲပြေစာ</label>
                             <input type="file" class="form-control" name="payslip">
+                            @error('payslip')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <button   class="btn border-secondary rounded-pill px-2 py-2 text-primary text-uppercase mb-4 form-control"

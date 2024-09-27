@@ -41,7 +41,7 @@ class PaymentController extends Controller
     {
         $payment = Payment::findOrFail($id);
         $payment->delete();
-        lert::success('Delete  Success', 'Delete Payment Method Successfully');
+        Alert::success('Delete  Success', 'Delete Payment Method Successfully');
         return redirect()->route('paymentList');
     }
 

@@ -47,9 +47,9 @@
                                 <tr>
                                     <td>
                                         @if ($p->name != null )
-                                        {{ $p->name }}
+                                        <a href="{{ route('accountProfile',$p->id)}}">{{ $p->name }}</a>
                                         @else
-                                        {{ $p->nickname }}
+                                        <a href="{{ route('accountProfile',$p->id)}}">{{ $p->nickname }}</a>
                                         @endif
                                     </td>
                                     <td>{{ $p->email}}</td>

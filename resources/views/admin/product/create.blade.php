@@ -9,8 +9,9 @@
         <div class="card shadow mb-4 col-12">
             <div class="card-header py-3">
                 <div class="">
-                    <div class="">
+                    <div class="d-flex justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Add Product</h6>
+                        <a href="{{route('productList')}}" class="btn btn-primary">Back</a>
                     </div>
                 </div>
             </div>

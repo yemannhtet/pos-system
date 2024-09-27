@@ -110,36 +110,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <h4>Additional</h4>
-                                        <div class="mb-2">
-                                            <input type="radio" class="me-2" id="Categories-1" name="Categories-1"
-                                                value="Beverages">
-                                            <label for="Categories-1"> Organic</label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <input type="radio" class="me-2" id="Categories-2" name="Categories-1"
-                                                value="Beverages">
-                                            <label for="Categories-2"> Fresh</label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <input type="radio" class="me-2" id="Categories-3" name="Categories-1"
-                                                value="Beverages">
-                                            <label for="Categories-3"> Sales</label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <input type="radio" class="me-2" id="Categories-4" name="Categories-1"
-                                                value="Beverages">
-                                            <label for="Categories-4"> Discount</label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <input type="radio" class="me-2" id="Categories-5" name="Categories-1"
-                                                value="Beverages">
-                                            <label for="Categories-5"> Expired</label>
-                                        </div>
-                                    </div>
-                                </div>
+
 
 
                             </div>
@@ -152,44 +123,48 @@
                                     <div class="row">
                                         @foreach ($products as $p)
                                             <div class="col-md-6 col-lg-6 col-xl-4">
-                                                <div class="rounded position-relative fruite-item">
-                                                    <div class="fruite-img">
-                                                        <a href="{{route('details',$p->id)}}">
-                                                            <img style="width:100%;  height: 230px;"
-                                                            src="{{ asset('images/' . $p->image) }}"
-                                                            class="img-fluid w-100 rounded-top" alt="">
+                                                <!-- Updated Card Design -->
+                                                <div class="card shadow-sm border-0 rounded position-relative fruite-item">
+                                                    <div class="p-3">
+                                                        <a href="{{ route('details', $p->id) }}">
+                                                            <img src="{{ asset('images/' . $p->image) }}"
+                                                                 class="img-fluid w-100 rounded-top"
+                                                                 alt="{{ $p->name }}"
+                                                                 style="height: 230px; object-fit: contain;">
                                                         </a>
+                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                             style="top: 10px; left: 10px;">
+                                                            {{ $p->category_name }}
+                                                        </div>
                                                     </div>
-                                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                        style="top: 10px; left: 10px;">{{ $p->category_name }}</div>
-                                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                        <h4>{{ $p->name }}</h4>
-                                                        <p> {{ implode(' ', array_slice(explode(' ', $p->description), 0, 20)) }}{{ str_word_count($p->description) > 20 ? '...' : '' }}
-                                                        </p>
-                                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                                            <p class="text-dark fs-5 fw-bold mb-2"><i
-                                                                    class="fa-solid fa-money-bill-wave"></i>
-                                                                {{ $p->price }}(MMK) </p>
-                                                                <form action="{{route('addToCart')}}" method="post">
-                                                                    @csrf
-                                                                    <input type="hidden" name="product_id" value="{{ $p->id}}">
-                                                                        <div class="input-group quantity mb-5" style="width: 100px;">
-                                                                        <div class="input-group-btn">
-                                                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
-                                                                                <i class="fa fa-minus"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                        <input type="text" class="form-control form-control-sm text-center border-0" name="qty"
-                                                                            value="1">
-                                                                        <div class="input-group-btn">
-                                                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border"  type="button">
-                                                                                <i class="fa fa-plus"></i>
-                                                                            </button>
-                                                                        </div>
+                                                    <div class="p-4 border-top-0">
+                                                        <h5 class="text-dark fw-bold">{{ $p->name }}</h5>
+                                                        <p class="text-muted">{{ implode(' ', array_slice(explode(' ', $p->description), 0, 20)) }}{{ str_word_count($p->description) > 20 ? '...' : '' }}</p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p class="text-dark fs-5 fw-bold mb-0"><i class="fa-solid fa-money-bill-wave"></i> {{ $p->price }} (MMK)</p>
+                                                        </div>
+                                                        <!-- Quantity and Add to Cart Section -->
+                                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                                            <form action="{{ route('addToCart') }}" method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $p->id }}">
+                                                                <div class="input-group quantity" style="width: 100px;">
+                                                                    <div class="input-group-btn">
+                                                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
+                                                                            <i class="fa fa-minus"></i>
+                                                                        </button>
                                                                     </div>
-                                                                    <button type="submit"  class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</button>
-                                                                  </form>
+                                                                    <input type="text" class="form-control form-control-sm text-center border-0" name="qty" value="1">
+                                                                    <div class="input-group-btn">
+                                                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 mt-3">
+                                                                    <i class="fa fa-shopping-bag me-2"></i> Add to cart
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -203,9 +178,9 @@
                                         {{ $products->links('pagination::bootstrap-5') }}
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
 
                     </div>
                 </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\AuthController;
 use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\User\ShopController;
+use App\Http\Controllers\user\ReportController;
 use App\Http\Controllers\user\ProfileController;
 use App\Http\Controllers\User\UserDashboardController;
 
@@ -25,7 +26,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'user'], function() {
   // password
   Route::prefix('password')->group(function(){
     Route::get('change', [AuthController::class, 'passwordChangePage'])->name('passwordChangePage');
-    Route::post('change', [AuthController::class, 'passwordChange'])->name('passwordChange');
+    Route::post('change', [AuthController::class, 'passwordChange'])->name('userPasswordChange');
 });
 //cart
 Route::prefix('cart')->group(function(){
@@ -37,4 +38,9 @@ Route::prefix('cart')->group(function(){
     Route::get('details/{orderCode}', [CartController::class, 'userOrderDetails'])->name('userOrderDetails');
     Route::get('payment', [CartController::class, 'payment'])->name('payment');
     Route::post('order/product', [CartController::class, 'orderProduct'])->name('orderProduct');
+});
+Route::prefix('contact')->group(function(){
+ Route::get('contact', [ReportController::class, 'contact'])->name('contact');
+Route::post('/submit-report', [ReportController::class, 'store'])->name('submit.report');
+
 });

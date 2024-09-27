@@ -20,7 +20,7 @@
                         </form>
                     </div>
                     <div class="">
-                        <a href="{{ route('ProductCreate') }}"><i class="fa-solid fa-plus"></i> Add Product</a>
+                        <a href="{{ route('ProductCreate') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Product</a>
                     </div>
                 </div>
             </div>

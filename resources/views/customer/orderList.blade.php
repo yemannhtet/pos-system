@@ -39,7 +39,7 @@
                                     @if ($o->status == 0)
                                         <button class="btn btn-sm btn-secondary">pending</button>
                                         @elseif($o->status == 1)
-                                        <button class="btn btn-sm btn-primary">success</button>
+                                        <button class="btn btn-sm btn-primary">Accept</button>
                                         @elseif($o->status == 2)
                                         <button class="btn btn-sm btn-danger">reject</button>
                                     @endif

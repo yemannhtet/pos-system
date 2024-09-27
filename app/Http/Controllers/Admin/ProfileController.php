@@ -110,4 +110,10 @@ class ProfileController extends Controller
 
         $validator = $request->validate($rules,$messages);
     }
+
+    //account profile direct route
+    public function accountProfile($id){
+       $account =  User::where('id',$id)->first();
+        return view('admin.profile.accountProfile',compact('account'));
+    }
 }

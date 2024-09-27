@@ -15,7 +15,7 @@ class ProductController extends Controller
         $products = Product::when(request('searchKey'),function($query){
                                                 $query->whereAny(['name','price','count'],'Like','%'.request('searchKey').'%');
                                                })
-                                              ->paginate(3);
+                                              ->paginate(5);
         return view('admin.product.list',compact('products'));
     }
 

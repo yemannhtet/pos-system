@@ -112,7 +112,9 @@
                                 </select>
                             </div>
                         </div>
-                        <button id="checkOut"  class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                        <button id="checkOut" @if (count($cart) == 0)
+                            disabled
+                        @endif class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
                             type="button">Proceed Checkout</button>
                     </div>
                 </div>
@@ -151,7 +153,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(response) {
         if (response.message === 'success') {
-            location.href = "payment";
+            location.reload();
         }
     },
     error: function(xhr, status, error) {
@@ -208,11 +210,6 @@ $('#checkOut').click(function() {
 });
 
 });
-
-
-
-
-
 
   </script>
 @endsection

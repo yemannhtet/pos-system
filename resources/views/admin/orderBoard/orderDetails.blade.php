@@ -6,37 +6,68 @@
 
     <a href="{{ route('adminOrderList')}}"><button class="btn btn-primary mb-3"><i class="fa fa-arrow-left"></i> back</button></a>
 
-    <div class="card shadow mb-4 col-5">
-           <div class="card-header py-3 mt-2">
-                <div class="d-flex justify-content-between">
-                    <div class="">
-                        <h6 class="m-0 font-weight-bold text-primary">Customer Info</h6>
-                   </div>
+    <div class="row d-flex justify-content-around">
+        <div class="card shadow mb-4 col-5 gap-2">
+            <div class="card-header py-3 mt-2">
+                 <div class="d-flex justify-content-between">
+                     <div class="">
+                         <h6 class="m-0 font-weight-bold text-primary">Customer Info</h6>
+                    </div>
+                 </div>
+             </div>
+                 <div class="card-body">
+                     <div class="row mb-3">
+                         <div class="col-5"><i class="fa fa-file-signature"></i> Name   :  :</div>
+                         <div class="col-5">{{$order[0]->customer_name}}</div>
+                     </div>
+                     <div class="row mb-3">
+                        <div class="col-5"><i class="fa fa-phone"></i> Phone  :  :</div>
+                        <div class="col-5">{{$order[0]->user_phone}}</div>
+                    </div>
+                     <div class="row mb-3">
+                         <div class="col-5"><i class="fa fa-barcode"></i> Order Code  :  :</div>
+                         <div class="col-5">{{$order[0]->order_code}}</div>
+                     </div>
+                     <div class="row mb-3">
+                         <div class="col-5"><i class="fa fa-calendar-days"></i> Order Date   :  :</div>
+                         <div class="col-5"> {{ \Carbon\Carbon::parse($order[0]->order_date)->format('d-M-Y') }}</div>
+                     </div>
+                     <div class="row mb-3">
+                         <div class="col-5">Total Price  :  :</div>
+                         <div class="col-5">{{$totalPrice + 1000}}  MMK <i class="fa fa-money-bill"></i><br>
+                             <small class="text-danger">Contain Delivery Charges</small>
+                         </div>
+                     </div>
+                 </div>
+     </div>
+     <div class="card shadow mb-4 col-6">
+        <div class="card-header py-3 mt-2">
+             <div class="d-flex justify-content-between">
+                 <div class="">
+                     <h6 class="m-0 font-weight-bold text-primary">PAYSLIP</h6>
                 </div>
-            </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-5"><i class="fa fa-file-signature"></i> Name   :  :</div>
-                        <div class="col-5">{{$order[0]->customer_name}}</div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-5"><i class="fa fa-barcode"></i> Order Code  :  :</div>
-                        <div class="col-5">{{$order[0]->order_code}}</div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-5"><i class="fa fa-calendar-days"></i> Order Date   :  :</div>
-                        <div class="col-5"> {{ \Carbon\Carbon::parse($order[0]->order_date)->format('d-M-Y') }}</div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-5">Total Price  :  :</div>
-                        <div class="col-5">{{$totalPrice + 1000}}  MMK <i class="fa fa-money-bill"></i><br>
-                            <small class="text-danger">Contain Delivery Charges</small>
-                        </div>
-                    </div>
-                </div>
+             </div>
+         </div>
+             <div class="card-body">
+                 <div class="row mb-3">
+                     <div class="col-5"><i class="fa fa-phone"></i> payslip contact :  :</div>
+                     <div class="col-5">{{$paySlip->phone}}</div>
+                 </div>
+                 <div class="row mb-3">
+                     <div class="col-5"><i class="fa fa-barcode"></i> payment type :  :</div>
+                     <div class="col-5">{{$paySlip->payment_name}}</div>
+                 </div>
+                 <div class="row mb-3">
+                    <div class="col-5"><i class="fa-solid fa-file-invoice-dollar"></i>  Payment Boucher : :</div>
+                    <img src=" {{ asset('payslip/'.$paySlip->payslip_image)}}" alt="" style="width: 140px; height:300px" class="img-thumbnail">
+                 </div>
+
+                 </div>
+             </div>
+ </div>
 
     </div>
-    </div>
+    <
     <!-- DataTales Example -->
     <div class="card shadow" style="margin-left: 20px; margin-right:20px;">
         <div class="card-header py-3">

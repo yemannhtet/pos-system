@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Ko Shwe's Kitchen Admin Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,72 +27,96 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+       <!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fa-solid fa-lemon"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Fruitiable Website </div>
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon ">
+            <i class="fa-solid fa-kitchen-set"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Ko Shwe's Kitchen</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('adminDashboard') }}">
+            <i class="fas fa-fw fa-table"></i><span>Dashboard</span>
+        </a>
+    </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('categoryList') }}">
+            <i class="fa-solid fa-sitemap"></i><span>Category</span>
+        </a>
+    </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('productList') }}">
+            <i class="fa-solid fa-layer-group"></i><span>Products</span>
+        </a>
+    </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('paymentList') }}">
+            <i class="fa-solid fa-credit-card"></i><span>Payment Method</span>
+        </a>
+    </li>
+
+
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('saleInfoList') }}">
+            <i class="fa-solid fa-list"></i><span>Sales Report</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('adminOrderList') }}">
+            <i class="fa-solid fa-cart-shopping"></i><span>Order Board</span>
+        </a>
+    </li>
+
+        <!-- Admin & User List with Dropdown -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminUserDropdown" aria-expanded="true" aria-controls="adminUserDropdown">
+                <i class="fa-solid fa-gear"></i>
+                <span>Admin & User Setting</span>
             </a>
+            <div id="adminUserDropdown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Admin Options:</h6>
+                    <a class="collapse-item" href="{{ route('adminList') }}">
+                        <i class="fa-solid fa-address-book"></i> Admin & User List
+                    </a>
+                    @if (auth()->user()->role == 'superadmin')
+                    <a class="collapse-item" href="{{ route('createAdminAccount') }}">
+                        <i class="fa-solid fa-user-plus"></i> Add Admin
+                    </a>
+                    @endif
+                    @if (auth()->user()->provider == 'simple')
+                    <a class="collapse-item" href="{{ route('changeAdminPassword') }}">
+                        <i class="fa-solid fa-lock"></i> Change Password
+                    </a>
+                    @endif
+                </div>
+            </div>
+        </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+    <li class="nav-item">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <input type="submit" value="Logout" class="btn btn-secondary  m-2  " style="width: 200px">
+        </form>
+    </li>
+</ul>
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('adminDashboard') }}"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('categoryList')}}"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('categoryCreatePage') }}"><i class="fa-solid fa-sitemap"></i></i><span>Add Category </span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('productList') }}"><i class="fa-solid fa-layer-group"></i><span>Product Details </span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('ProductCreate') }}"><i class="fa-solid fa-plus"></i></i><span>Add Item </span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('paymentList') }}"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('adminList')}}"><i class="fa-solid fa-address-book"></i><span>Admin & User List  </span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('adminOrderList')}}"><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
-            </li>
-            @if (auth()->user()->role == 'superadmin')
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('createAdminAccount')}}"><i class="fa-solid fa-user-plus"></i></i><span>Add Admin</span></a>
-            </li>
-            @endif
-            @if (auth()->user()->provider == 'simple')
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('passwordChangePage')}}"><i class="fa-solid fa-lock"></i></i></i><span>Change Password </span></a>
-            </li>
-            @endif
-                <li class="nav-item">
-                    <form  method="POST" action="{{ route('logout') }}">
-                        @csrf
-                          <input type="submit" value="Logout" class="btn btn-secondary ml-3 mt-2">
-                    </form>
-                </li>
-
-
-        </ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -148,7 +172,7 @@
                                     Admin & User List
                                 </a>
                                 @endif
-                                <a class="dropdown-item" href="{{ route('passwordChangePage')}}">
+                                <a class="dropdown-item" href="{{ route('changeAdminPassword')}}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password
                                 </a>

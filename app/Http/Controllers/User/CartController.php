@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use App\Models\PaySlipHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -119,7 +120,7 @@ class CartController extends Controller
 
         $totalPrice = 0;
         foreach($order as $item){
-            $totalPrice += $item->order_count * $item->product_price;
+        $totalPrice += $item->order_count * $item->product_price;
         }
 
 
@@ -128,19 +129,52 @@ class CartController extends Controller
 
     public function payment() {
         $orderProduct =Session::get('orderList');
-        $payment = Payment::get();
+        $payment = Payment::orderBy('type','asc')-> get();
 
         $total = 0;
         foreach($orderProduct as $item)
 
-        $total += $item['total_price'];
+        $total = $item['total_price'];
 
     //   dd($orderProduct);
         return view('customer.payment', compact('payment','orderProduct','total'));
     }
 
-    public function orderProduct(Request $request){
-        dd($request->all());
-    }
+    public function orderProduct(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'payment_type' => 'required',
+            'payslip' => 'required',
+        ], [
+            'name.required' => 'အမည်တစ်ခုဖြည့်စွက်ရန်လိုသည်။',
+            'payslip.required' => 'ငွေ လွှဲပြေစာ ဖြည့်သွင်းရန် လိုအပ်သည်။',
+            'phone.required' => 'ဖုန်းနံပါတ်ဖြည့်သွင်းရန်လိုအပ်သည်။',
+            'payment_type.required' => 'payment အမျိူအစားရွေးချယ်ရန်လိုအပ်ပါသည်。',
+        ]);
 
-      }
+        $cartProduct = Session::get('orderList');
+
+        foreach($cartProduct as $item){
+            Order::create($item);
+            Cart::where('user_id',$item['user_id'])->where('product_id',$item['product_id'])->delete();
+        }
+
+        $data = [
+            'customer_name' => $request->name,
+            'phone' => $request->phone,
+            'payment_method' => $request->payment_type,
+            'order_code' => $request->order_code,
+            'order_amount' => $request->total,
+        ];
+
+        if($request->hasFile('payslip')){
+            $fileName =uniqid() . $request->file('payslip')->getClientOriginalName();
+            $request->file('payslip')->move(public_path().'/payslip/',$fileName);
+            $data['payslip_image'] =$fileName;
+          }
+                    PaySlipHistory::create($data);
+                    return to_route('orderList');
+            }
+
+}

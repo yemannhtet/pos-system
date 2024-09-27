@@ -13,7 +13,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Category List</h6>
                 </div>
                 <div class="">
-                    <a href="{{ route('categoryCreatePage') }}"><i class="fa-solid fa-plus"></i> Add Category</a>
+                    <a href="{{ route('categoryCreatePage') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Category</a>
                 </div>
             </div>
         </div>

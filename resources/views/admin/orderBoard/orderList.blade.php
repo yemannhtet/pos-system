@@ -10,7 +10,7 @@
         <div class="card-header py-3">
             <div class="d-flex justify-content-between">
                 <div class="">
-                    <h6 class="m-0 font-weight-bold text-primary">Category List</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">OrderList</h6>
                 </div>
 
             </div>
@@ -33,12 +33,12 @@
                                     <input type="hidden" id="orderCode" value="{{$item->order_code}}">
                                     <td>{{ \Carbon\Carbon::parse($item->order_date)->format('d-M-Y') }}</td>
                                         <td><a href="{{ route('adminOrderDetails', $item-> order_code)}}">{{ $item-> order_code}}</a></td>
-                                        <td>{{ $item-> user_name}}</td>
+                                        <td> <a href="{{route('accountProfile',$item->user_id)}}">{{ $item-> user_name}}</a> </td>
 
                                         <td class="d-flex justify-content-arround">
                                             <select name="status" class="form-control statusChange">
                                                 <option value="0" @if ($item->status == 0) selected @endif>Pending</option>
-                                                <option value="1" @if ($item->status == 1) selected @endif>Success</option>
+                                                <option value="1" @if ($item->status == 1) selected @endif>Accept</option>
                                                 <option value="2" @if ($item->status == 2) selected @endif>Reject</option>
                                             </select>
 

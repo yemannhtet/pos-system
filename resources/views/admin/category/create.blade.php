@@ -36,6 +36,8 @@
                     @enderror
                 </div>
 
+
+                <a href="{{route('categoryList')}}" class="btn btn-primary">Back</a>
                 <input type="submit" value="Create" class="btn btn-primary">
             </form>
 
