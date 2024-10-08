@@ -18,7 +18,7 @@
                         </form>
                     </div>
                     <div class="">
-                        <a href="{{route('createAdminAccount')}}"><button class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Add Admin</button></a>
+
                     </div>
                 </div>
             </div>

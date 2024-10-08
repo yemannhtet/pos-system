@@ -31,27 +31,45 @@
                 </a>
 
             </div>
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <a href="{{ route('adminList') }}">
+                                <div class="card border-left-dark shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Admins
+                                                 </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $admin_total }}</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-user-secret fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
 
-            <!-- Earnings (Monthly) Card Example -->
+                        </div>
             <div class="col-xl-3 col-md-6 mb-4">
-                <a href="{{ route('adminList') }}">
-                    <div class="card border-left-dark shadow h-100 py-2">
+                <a href="{{ route('paymentList') }}">
+                    <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Admins
-                                     </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $admin_total }}</div>
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Payments</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$payment_total}}</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-user-secret fa-2x text-gray-300"></i>
+                                    <i class="fas fa-credit-card fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-
             </div>
+
 
 
         </div>
@@ -84,24 +102,7 @@
         </div>
         <!-- Earnings (Monthly) Card Example -->
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <a href="{{ route('paymentList') }}">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Payments</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $payment_total }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-credit-card fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
+
 
 
 
@@ -157,6 +158,25 @@
     <hr>
     <!-- Content Row -->
     <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="{{ route('adminOrderList') }}">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Pending Orders</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $order_pending }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa fa-comments-dollar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
         <!-- Earnings (Monthly) Card Example -->
         <a href="{{ route('adminOrderList') }}">
             <div class="col-xl-3 col-md-6 mb-4">
@@ -179,24 +199,6 @@
     </div>
     <!-- Earnings (Monthly) Card Example -->
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <a href="{{ route('adminOrderList') }}">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Orders</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $order_pending }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fa fa-comments-dollar fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
 
 
 
@@ -228,6 +230,29 @@
 
     </div>
 
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="#">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Customer Report From Contact Us
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $report }}</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa fa-comments-dollar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+    </div>
 
     <hr>
 

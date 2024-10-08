@@ -17,7 +17,8 @@ class AuthController extends Controller
     }
 
         // change password function
-        public function passwordChange(Request $request){
+        public function userPasswordChange (Request $request){
+
             $validator = $request->validate([
                'oldPassword' => 'required',
                'newPassword' => 'required|min:8',

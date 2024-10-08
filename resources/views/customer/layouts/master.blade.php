@@ -179,7 +179,7 @@
                     <p>Email: <a href="mailto:Example@gmail.com" class="text-secondary">koshwe@gmail.com</a></p>
                     <p>Phone: <a href="#" class="text-secondary">+09 23 4567 891</a></p>
                     <p>Payment Accepted</p>
-                    <img src="img/payment.png" class="img-fluid" alt="Payment Methods">
+                    <img src="{{asset('customer/img/payment.png')}}" class="img-fluid" alt="Payment Methods">
                 </div>
             </div>
         </div>

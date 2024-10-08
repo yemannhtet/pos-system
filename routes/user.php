@@ -26,7 +26,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'user'], function() {
   // password
   Route::prefix('password')->group(function(){
     Route::get('change', [AuthController::class, 'passwordChangePage'])->name('passwordChangePage');
-    Route::post('change', [AuthController::class, 'passwordChange'])->name('userPasswordChange');
+    Route::post('change', [AuthController::class, 'userPasswordChange'])->name('userPasswordChange');
 });
 //cart
 Route::prefix('cart')->group(function(){

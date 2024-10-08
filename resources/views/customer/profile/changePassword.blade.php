@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('passwordChange') }}" method="post">
+            <form action="{{ route('userPasswordChange') }}" method="post">
                 @csrf
 
                 <div class="mb-3">
